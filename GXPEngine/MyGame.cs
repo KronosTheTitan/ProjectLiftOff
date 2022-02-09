@@ -4,10 +4,10 @@ using System.Drawing;							// System.Drawing contains drawing tools such as Col
 
 public class MyGame : Game
 {
-	public MyGame() : base(1920,1080, true)		// Create a window that's 800x600 and NOT fullscreen
+	public MyGame() : base(800,600, false,pPixelArt: true)		// Create a window that's 800x600 and NOT fullscreen
 	{
 		// Draw some things on a canvas:
-		EasyDraw canvas = new EasyDraw(1920, 1080, false);
+		EasyDraw canvas = new EasyDraw(800, 600, false);
 		canvas.Clear(Color.MediumPurple);
 		canvas.Fill(Color.Yellow);
 		canvas.Ellipse(width / 2, height / 2, 200, 200);
@@ -18,6 +18,7 @@ public class MyGame : Game
 
 		// Add the canvas to the engine to display it:
 		AddChild(canvas);
+		AddChild(new Scene());
 		Console.WriteLine("MyGame initialized");
 	}
 

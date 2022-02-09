@@ -6,9 +6,11 @@ using GXPEngine;
 
 class Vehicle : Sprite
 {
-    public Vehicle(string fileName) : base(fileName)
+    int health;
+    public Vehicle(int iHealth,string fileName) : base(fileName)
     {
-
+        health = iHealth;
+        SetOrigin(width / 2, height / 2);
     }
     public virtual void Shoot()
     {
@@ -16,14 +18,10 @@ class Vehicle : Sprite
     }
     public virtual void whenHit()
     {
-
+        health--;
     }
     void OnCollision(GameObject other)
     {
-        if(other is Projectile)
-        {
-            Projectile projectile = (Projectile)other;
-            projectile.OnHit();
-        }
+
     }
 }
