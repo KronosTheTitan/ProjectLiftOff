@@ -44,7 +44,12 @@ class Scene : GameObject
                 return;
             }
         }
-        Console.WriteLine("test");
+        GameObject[] gameObject=asteroid.GetCollisions();
+        if(gameObject.Length > 0)
+        {
+            asteroid.Destroy();
+            return;
+        }
         latestAsteroids[0] = latestAsteroids[1];
         latestAsteroids[1] = latestAsteroids[2];
         latestAsteroids[2] = asteroid;
