@@ -5,16 +5,18 @@ using System.Text;
 using GXPEngine;
 class Scene : GameObject
 {
-    Player player;
+    public Player player;
     ScenePivot scenePivot;
     Asteroid[] latestAsteroids = new Asteroid[3];
     float timeLastAsteroid = 0;
     float lastScore = CoreParameters.scoreInterval;
     int score = 0;
-    bool playerAlive = true;
+    public bool playerAlive = true;
+    float lastBoss = 0;
+    bool bossFight = false;
     public Scene()
     {
-        player = new Player(5, "triangle.png");
+        player = new Player(3, "triangle.png",this);
         player.SetXY(100, 600 / 2);
         AddChild(player);
         scenePivot = new ScenePivot();
@@ -26,18 +28,26 @@ class Scene : GameObject
         }
 
         AddChild(latestAsteroids[0]);
-        AddChild(latestAsteroids[1]);
+        AddChild(latestAsteroids[1]); 
         AddChild(latestAsteroids[2]);
     }
     void Update()
     {
-        SpawnAsteroid();
-        UpdateScore();
+        if (!bossFight)
+        {
+            SpawnAsteroid();
+            if (Time.time > lastBoss + CoreParameters.bossScoreInterval)
+            {
+                BossFightStart();
+            }
+            UpdateScore();
+        }
     }
     void SpawnAsteroid()
     {
-        if (Time.time > timeLastAsteroid + (Mathf.Clamp(CoreParameters.maxTimeBetweenAsteroids - score, CoreParameters.minTimeBetweenAsteroids, CoreParameters.maxTimeBetweenAsteroids)))
+        if (Time.time > timeLastAsteroid + Mathf.Clamp(CoreParameters.maxTimeBetweenAsteroids - score, CoreParameters.minTimeBetweenAsteroids, CoreParameters.maxTimeBetweenAsteroids))
              return;
+        Console.WriteLine("attempt spawn");
         Asteroid asteroid = new Asteroid(this,Utils.Random(CoreParameters.minSpawnXAsteroids, CoreParameters.maxSpawnXAsteroids), player.y);
         foreach(Asteroid asteroid1 in latestAsteroids)
         {
@@ -68,5 +78,25 @@ class Scene : GameObject
             lastScore = Time.time;
             score++;
         }
+    }
+    void BossFightStart()
+    {
+        bossFight = true;
+        AddChild(new Boss(this));
+    }
+    public void BossFightEnd()
+    {
+        bossFight = false;
+        lastBoss = Time.time;
+        timeLastAsteroid = Time.time;
+
+        for (int i = 0; i < latestAsteroids.Length; i++)
+        {
+            latestAsteroids[i] = new Asteroid(this, 1000, Utils.Random(0, 600));
+        }
+
+        AddChild(latestAsteroids[0]);
+        AddChild(latestAsteroids[1]);
+        AddChild(latestAsteroids[2]);
     }
 }

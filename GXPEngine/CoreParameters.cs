@@ -21,4 +21,12 @@ class CoreParameters
     public const float maxDistanceToOther = 1000;
 
     public const float scoreInterval = 200;
+
+    public const float bossScoreInterval = 30000;
+    public const float bossMainGunInterval = 500;
+    public const float bossSideGunInterval = 400;
+
+    public const float bulletSpeed = .3f;
+
+    public const float playerFireSpeed = 1000f;
 }

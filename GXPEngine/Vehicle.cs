@@ -6,10 +6,12 @@ using GXPEngine;
 
 class Vehicle : Sprite
 {
-    int health;
-    public Vehicle(int iHealth,string fileName) : base(fileName)
+    public int health;
+    public Scene scene;
+    public Vehicle(int iHealth,string fileName,Scene iScene) : base(fileName)
     {
         health = iHealth;
+        scene = iScene;
         SetOrigin(width / 2, height / 2);
     }
     public virtual void Shoot()
@@ -29,6 +31,16 @@ class Vehicle : Sprite
                     Console.WriteLine("Collision!");
                     gameObject.LateDestroy();
                 }
+                if(gameObject is Bullet)
+                {
+                    Bullet bullet = (Bullet)gameObject;
+                    if(bullet.shooter != this)
+                    {
+                        whenHit();
+                        Console.WriteLine("Collision!");
+                        gameObject.LateDestroy();
+                    }
+                }
             }
         }
     }
@@ -36,6 +48,10 @@ class Vehicle : Sprite
     {
         health--;
         if (health <= 0)
+        {
+            if (this is Player)
+                scene.playerAlive = false;
             Destroy();
+        }
     }
 }
