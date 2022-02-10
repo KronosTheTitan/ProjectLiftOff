@@ -10,7 +10,7 @@ class Asteroid : Sprite
     Scene scene;
     public Asteroid(Scene iScene,float iX,float iY, string filename = "circle.png") : base(filename)
     {
-        speed = 5;
+        speed = .5f;
         scene = iScene;
         x = iX;
         y = iY;
@@ -18,8 +18,7 @@ class Asteroid : Sprite
     }
     void Update()
     {
-        x -= speed;
-        Console.WriteLine(x);
+        x -= speed * Time.deltaTime;
         if (x < -10)
             Delete();
 

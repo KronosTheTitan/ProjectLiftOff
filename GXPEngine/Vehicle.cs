@@ -16,12 +16,26 @@ class Vehicle : Sprite
     {
 
     }
+    public virtual void Update()
+    {
+        GameObject[] collisions = GetCollisions();
+        if(collisions.Length > 0)
+        {
+            foreach(GameObject gameObject in collisions)
+            {
+                if(gameObject is Asteroid)
+                {
+                    whenHit();
+                    Console.WriteLine("Collision!");
+                    gameObject.LateDestroy();
+                }
+            }
+        }
+    }
     public virtual void whenHit()
     {
         health--;
-    }
-    void OnCollision(GameObject other)
-    {
-
+        if (health <= 0)
+            Destroy();
     }
 }

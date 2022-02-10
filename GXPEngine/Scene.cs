@@ -9,7 +9,9 @@ class Scene : GameObject
     ScenePivot scenePivot;
     Asteroid[] latestAsteroids = new Asteroid[3];
     float timeLastAsteroid = 0;
+    float lastScore = CoreParameters.scoreInterval;
     int score = 0;
+    bool playerAlive = true;
     public Scene()
     {
         player = new Player(5, "triangle.png");
@@ -30,6 +32,7 @@ class Scene : GameObject
     void Update()
     {
         SpawnAsteroid();
+        UpdateScore();
     }
     void SpawnAsteroid()
     {
@@ -38,7 +41,7 @@ class Scene : GameObject
         Asteroid asteroid = new Asteroid(this,Utils.Random(CoreParameters.minSpawnXAsteroids, CoreParameters.maxSpawnXAsteroids), player.y);
         foreach(Asteroid asteroid1 in latestAsteroids)
         {
-            if(asteroid.DistanceTo(asteroid1) < CoreParameters.minDistanceToOther)
+            if(asteroid.DistanceTo(asteroid1) < Mathf.Clamp(CoreParameters.maxDistanceToOther-score, CoreParameters.minDistanceToOther,CoreParameters.maxDistanceToOther))
             {
                 asteroid.Destroy();
                 return;
@@ -55,5 +58,15 @@ class Scene : GameObject
         latestAsteroids[2] = asteroid;
         AddChild(asteroid);
         timeLastAsteroid = Time.time;
+    }
+    void UpdateScore()
+    {
+        if (!playerAlive)
+            return;
+        if (Time.time > lastScore + CoreParameters.scoreInterval)
+        {
+            lastScore = Time.time;
+            score++;
+        }
     }
 }

@@ -6,14 +6,15 @@ using GXPEngine;
 
 class Player : Vehicle
 {
-    float speed = 1;
+    float speed = 1f;
     public Player(int iHealth,string filename) : base(iHealth,filename)
     {
         rotation = 90;
     }
-    void Update()
+    public override void Update()
     {
         MovePlayer();
+        base.Update();
     }
 
     void MovePlayer()
