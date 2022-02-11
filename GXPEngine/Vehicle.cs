@@ -28,18 +28,24 @@ class Vehicle : Sprite
                 if(gameObject is Asteroid)
                 {
                     whenHit();
-                    Console.WriteLine("Collision!");
                     gameObject.LateDestroy();
                 }
-                if(gameObject is Bullet)
+                //if(gameObject is Bullet)
+                //{
+                //    Bullet bullet = (Bullet)gameObject;
+                //    if(bullet.shooter != this)
+                //    {
+                //        whenHit();
+                //        Console.WriteLine("Collision!");
+                //        gameObject.LateDestroy();
+                //    }
+                //}
+                if(gameObject is FuelTank && this is Player)
                 {
-                    Bullet bullet = (Bullet)gameObject;
-                    if(bullet.shooter != this)
-                    {
-                        whenHit();
-                        Console.WriteLine("Collision!");
-                        gameObject.LateDestroy();
-                    }
+                    Player player = (Player)this;
+                    player.lastFuel = Time.time;
+                    FuelTank fuelTank = (FuelTank)gameObject;
+                    fuelTank.Delete();
                 }
             }
         }

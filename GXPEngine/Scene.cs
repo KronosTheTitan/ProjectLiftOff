@@ -14,6 +14,8 @@ class Scene : GameObject
     public bool playerAlive = true;
     float lastBoss = 0;
     bool bossFight = false;
+
+    public List<FuelTank> fuelTanks = new List<FuelTank>();
     public Scene()
     {
         player = new Player(3, "triangle.png",this);
@@ -36,18 +38,21 @@ class Scene : GameObject
         if (!bossFight)
         {
             SpawnAsteroid();
-            if (Time.time > lastBoss + CoreParameters.bossScoreInterval)
-            {
-                BossFightStart();
-            }
+            //if (Time.time > lastBoss + CoreParameters.bossScoreInterval)
+            //{
+                //BossFightStart();
+            //}
             UpdateScore();
+            if(fuelTanks.Count < 3)
+            {
+                FuelTank fuel = new FuelTank(this);
+            }
         }
     }
     void SpawnAsteroid()
     {
         if (Time.time > timeLastAsteroid + Mathf.Clamp(CoreParameters.maxTimeBetweenAsteroids - score, CoreParameters.minTimeBetweenAsteroids, CoreParameters.maxTimeBetweenAsteroids))
              return;
-        Console.WriteLine("attempt spawn");
         Asteroid asteroid = new Asteroid(this,Utils.Random(CoreParameters.minSpawnXAsteroids, CoreParameters.maxSpawnXAsteroids), player.y);
         foreach(Asteroid asteroid1 in latestAsteroids)
         {
@@ -82,7 +87,7 @@ class Scene : GameObject
     void BossFightStart()
     {
         bossFight = true;
-        AddChild(new Boss(this));
+        //AddChild(new Boss(this));
     }
     public void BossFightEnd()
     {
