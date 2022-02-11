@@ -6,18 +6,21 @@ using GXPEngine;
 
 class Player : Vehicle
 {
+    float speed = .75f;
+    float lastShot;
     public int health;
     public int fuel;
-    float speed = 1;
     public Player(int iHealth,string filename) : base(iHealth,filename)
     {
         rotation = 90;
         health = 3;
         fuel = 60;
     }
-    void Update()
+    public override void Update()
     {
         MovePlayer();
+        Shoot();
+        base.Update();
     }
 
     void MovePlayer()
@@ -27,8 +30,12 @@ class Player : Vehicle
         if (y < 600-(width/2) && Input.GetKey(Key.DOWN))
             y += speed * Time.deltaTime;
     }
-    void Shoot()
+    public override void Shoot()
     {
-        
+        if (Input.GetKey(Key.SPACE) && Time.time > lastShot + CoreParameters.playerFireSpeed)
+        {
+            scene.AddChild(new Bullet(x, y, 0, this));
+            lastShot = Time.time;
+        }
     }
 }
