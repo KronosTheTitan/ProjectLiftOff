@@ -8,6 +8,7 @@ class Player : Vehicle
 {
     float speed = .75f;
     float lastShot;
+    public float lastFuel = 0;
     public Player(int iHealth,string filename,Scene scene) : base(iHealth,filename,scene)
     {
         rotation = 90;
@@ -17,6 +18,7 @@ class Player : Vehicle
     {
         MovePlayer();
         Shoot();
+        UpdateFuel();
         base.Update();
     }
 
@@ -31,8 +33,22 @@ class Player : Vehicle
     {
         if (Input.GetKey(Key.SPACE) && Time.time > lastShot + CoreParameters.playerFireSpeed)
         {
-            scene.AddChild(new Bullet(x, y, 0, this));
-            lastShot = Time.time;
+            //scene.AddChild(new Bullet(x, y, 0, this));
+            //lastShot = Time.time;
         }
+    }
+    public void UpdateFuel()
+    {
+        if(Time.time > lastFuel + CoreParameters.maxTimeBetweenFuel)
+        {
+            health = 0;
+            if (health <= 0)
+            {
+                if (this is Player)
+                    scene.playerAlive = false;
+                Destroy();
+            }
+        }
+
     }
 }
