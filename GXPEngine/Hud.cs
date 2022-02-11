@@ -82,7 +82,7 @@ class Hud : GameObject
         fuelbarFill.SetOrigin(fuelbarFill.width / 2, fuelbarFill.height / 2);
         fuelbarFill.scale = CoreParameters.hudFuelbarScale;
         fuelbarFill.SetXY(fuelbarHudElement.width, fuelbarHudElement.height);
-        fuelbarFill.width = activeScene.player.fuel;
+        fuelbarFill.width = Mathf.Clamp(activeScene.player.l,1,100);
         fuelbarHudElement.AddChild(fuelbarFill);
         AddChild(fuelbarHudElement);
         fuelbarFillAmount = fuelbarFill.width;

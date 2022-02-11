@@ -14,6 +14,9 @@ class CoreParameters
     public const float minSpeedFromScore = 0;
     public const float maxSpeedFromScore = 5;
 
+    public const float minDistanceToOther = 150;
+    public const float maxDistanceToOther = 500;
+
     public const float minSpawnXAsteroids = 1000;
     public const float maxSpawnXAsteroids = 2500;
   

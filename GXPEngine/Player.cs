@@ -12,7 +12,6 @@ class Player : Vehicle
     {
         rotation = 90;
         health = 3;
-        fuel = 60;
     }
     public override void Update()
     {
