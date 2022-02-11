@@ -8,11 +8,11 @@ public class MyGame : Game
 
     public MyGame() : base(800, 600, false, true)
     {
-        LoadScene();
-        //LoadScoreBoard();
+        //LoadScene();
+        LoadScoreBoard();
     }
 
-    public void LoadScene()
+    public void LoadScene(string pPlayerName = "")
     {
         if (activeScoreBoard != null) //Destroy scoreboard
         {
@@ -24,7 +24,7 @@ public class MyGame : Game
 
         activeScene = new Scene();
         AddChild(activeScene);
-        activeHud = new Hud(activeScene);
+        activeHud = new Hud(activeScene, pPlayerName);
         AddChild(activeHud);
         Pickup pickup = new Pickup("Star.png", 13, Pickup.Type.Health, activeHud, activeScene);
         pickup.SetXY(game.width, game.height / 2);
@@ -34,6 +34,7 @@ public class MyGame : Game
     public void LoadScoreBoard()
     {
         int latestScore = activeHud != null ? activeHud.scoreCount : 0;
+        string latestName = activeHud != null ? activeHud.playerName : "";
 
         if (activeScene != null) //Destroy scene
         {
@@ -43,7 +44,7 @@ public class MyGame : Game
             }
         }
 
-        activeScoreBoard = new ScoreBoard(latestScore);
+        activeScoreBoard = new ScoreBoard(latestScore, latestName);
         AddChild(activeScoreBoard);   
     }    
 

@@ -9,14 +9,23 @@ class ScoreBoard : GameObject
     List<string> names = new List<string>();
     List<int> scores = new List<int>();
     Font font;
+    int latestScore;
+    string latestName;
 
-    public ScoreBoard(int pLatestScore) : base()
+    public ScoreBoard(int pLatestScore = 0, string pLatestName = "") : base()
     {
         font = Utils.LoadFont(CoreParameters.fontPath, CoreParameters.scoreBoardTitleFontSize);
+
+        latestScore = pLatestScore;
+        latestName = pLatestName;
 
         CreateTitle();
 
         CreateTable();
+
+        CreateStartButton();
+
+        CreateNewPlayerButton();
     }
 
     void CreateTitle()
@@ -32,36 +41,52 @@ class ScoreBoard : GameObject
         AddChild(title);
     }
 
+    void CreateStartButton()
+    {
+        if (latestName != "")
+        {
+            //Calls ((MyGame)game).LoadScene(latestName);
+        }
+        //TODO create start button
+    }
+
+    void CreateNewPlayerButton()
+    {
+        //TODO Set playername
+    }
+
     void CreateTable()
     {
         LoadData("SaveGame.txt");
+        
+        CreateCell(true, "Players", 0);
+        CreateCell(false, "Scores", 0);
 
         foreach (string name in names)
         {
             //Names = Column 1
-            CreateCell(true, name);
+           CreateCell(true, name, names.IndexOf(name)+1);
         }
 
         foreach (int score in scores)
         {
             //Sores = Column 2
-            CreateCell(false, score.ToString());
+            CreateCell(false, score.ToString(), scores.IndexOf(score)+1);
         }
 
+        //TODO create last row with global values
     }
 
-    void CreateCell(bool isNameCell, string cellText)
+    void CreateCell(bool isFirstColumn, string cellText, int index)
     {
-        Console.WriteLine(names.IndexOf(name));
         EasyDraw cell = new EasyDraw(CoreParameters.scoreTableCellWidth, CoreParameters.scoreTableCellHeight);
         cell.SetOrigin(cell.width / 2, cell.height / 2);
-        cell.SetXY(isNameCell ? CoreParameters.scoreTablePosX : CoreParameters.scoreTablePosX + CoreParameters.scoreTableCellWidth,
-            CoreParameters.scoreTablePosY + names.IndexOf(name)  + 1 * CoreParameters.scoreTableCellHeight);
+        cell.SetXY(isFirstColumn ? CoreParameters.scoreTablePosX : CoreParameters.scoreTablePosX + CoreParameters.scoreTableCellWidth,
+            CoreParameters.scoreTablePosY + index * CoreParameters.scoreTableCellHeight);
         cell.TextFont(font);
         cell.TextAlign(CenterMode.Min, CenterMode.Center);
         cell.Fill(Color.White);
         cell.Text(cellText);
-        cell.SetXY(CoreParameters.scoreBoardTitlePosX, CoreParameters.scoreBoardTitlePosY);
         AddChild(cell);
     }
 
@@ -111,5 +136,34 @@ class ScoreBoard : GameObject
         {
             Console.WriteLine("Error while loading save file: {0}", error.Message);
         }
+    }
+
+    void SaveGame(string pFilename, int pNewScore = 0, string pNewName = "")
+    {
+        try
+        {
+            using (StreamWriter writer = new StreamWriter(pFilename))
+            {
+                if (pNewName != "")
+                {
+                    names.Add(pNewName);
+                    scores.Add(pNewScore);
+                }
+
+                writer.WriteLine("names=" + string.Join<string>(",", names));
+                writer.WriteLine("scores=" + string.Join<int>(",", scores));
+               
+                writer.Close();
+            }
+        }
+        catch (Exception error)
+        {
+            Console.WriteLine("Error while writing save file: {0}", error.Message);
+        }
+    }
+
+    protected override void OnDestroy()
+    {
+        SaveGame(CoreParameters.savefileName, latestScore, latestName);
     }
 }
