@@ -12,6 +12,8 @@ class Player : Vehicle
     public Player(int iHealth,string filename,Scene scene) : base(iHealth,filename,scene)
     {
         rotation = 90;
+        health = 3;
+        fuel = 60;
     }
     public override void Update()
     {
