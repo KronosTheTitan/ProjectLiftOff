@@ -29,4 +29,5 @@ class CoreParameters
     public const float bulletSpeed = .3f;
 
     public const float playerFireSpeed = 1000f;
+    public const float maxTimeBetweenFuel = 10000f;
 }
