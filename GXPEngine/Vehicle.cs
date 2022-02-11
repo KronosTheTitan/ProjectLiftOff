@@ -30,16 +30,16 @@ class Vehicle : Sprite
                     whenHit();
                     gameObject.LateDestroy();
                 }
-                //if(gameObject is Bullet)
-                //{
-                //    Bullet bullet = (Bullet)gameObject;
-                //    if(bullet.shooter != this)
-                //    {
-                //        whenHit();
-                //        Console.WriteLine("Collision!");
-                //        gameObject.LateDestroy();
-                //    }
-                //}
+                if(gameObject is Bullet)
+                {
+                    Bullet bullet = (Bullet)gameObject;
+                    if(bullet.shooter != this)
+                    {
+                        whenHit();
+                        Console.WriteLine("Collision!");
+                        gameObject.LateDestroy();
+                    }
+                }
                 if(gameObject is FuelTank && this is Player)
                 {
                     Player player = (Player)this;

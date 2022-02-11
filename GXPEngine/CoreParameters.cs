@@ -20,9 +20,6 @@ class CoreParameters
     public const float minSpawnXAsteroids = 1000;
     public const float maxSpawnXAsteroids = 2500;
   
-    public const float minDistanceToOther = 150;
-    public const float maxDistanceToOther = 500;
-  
     public const float scoreInterval = 200;
 
     public const float bossScoreInterval = 30000;

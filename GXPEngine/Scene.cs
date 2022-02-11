@@ -38,15 +38,19 @@ class Scene : GameObject
         if (!bossFight)
         {
             SpawnAsteroid();
-            //if (Time.time > lastBoss + CoreParameters.bossScoreInterval)
-            //{
-                //BossFightStart();
-            //}
+            if (Time.time > lastBoss + CoreParameters.bossScoreInterval)
+            {
+               BossFightStart();
+            }
             UpdateScore();
             if(fuelTanks.Count < 3)
             {
                 FuelTank fuel = new FuelTank(this);
             }
+        }
+        else
+        {
+            player.lastFuel = Time.time;
         }
     }
     void SpawnAsteroid()
@@ -87,7 +91,7 @@ class Scene : GameObject
     void BossFightStart()
     {
         bossFight = true;
-        //AddChild(new Boss(this));
+        AddChild(new Boss(this));
     }
     public void BossFightEnd()
     {
