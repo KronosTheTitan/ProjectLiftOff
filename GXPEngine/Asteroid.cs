@@ -10,18 +10,21 @@ class Asteroid : Sprite
     Scene scene;
     public Asteroid(Scene iScene,float iX,float iY, string filename = "circle.png") : base(filename)
     {
-        speed = 5;
+        speed = .5f;
         scene = iScene;
         x = iX;
         y = iY;
         SetOrigin(width / 2, height / 2);
+        Console.WriteLine("new asteroid");
     }
     void Update()
     {
-        x -= speed;
-        Console.WriteLine(x);
-        if (x < -10)
-            Delete();
+        if (scene.playerAlive)
+        {
+            x -= speed * Time.deltaTime;
+            if (x < -10)
+                Delete();
+        }
 
     }
     public virtual void OnHit(GameObject contact)
