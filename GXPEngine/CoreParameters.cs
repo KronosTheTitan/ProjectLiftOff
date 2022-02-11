@@ -66,8 +66,7 @@ class CoreParameters
     public const int scoreTableNumOfRows = 20;
     public const float scoreTablePosX = 300f;
     public const float scoreTablePosY = 300f;
-    public const float minDistanceToOther = 350;
-    public const float maxDistanceToOther = 1000;
+    public const float maxDistanceToOther = 1000f;
 
     public const float scoreInterval = 200;
 
