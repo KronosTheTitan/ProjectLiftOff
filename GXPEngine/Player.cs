@@ -10,7 +10,7 @@ class Player : Vehicle
     float lastShot;
     public int health;
     public int fuel;
-    public Player(int iHealth,string filename) : base(iHealth,filename)
+    public Player(int iHealth,string filename,Scene scene) : base(iHealth,filename,scene)
     {
         rotation = 90;
         health = 3;

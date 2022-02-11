@@ -16,8 +16,20 @@ class CoreParameters
 
     public const float minSpawnXAsteroids = 1000;
     public const float maxSpawnXAsteroids = 2500;
+  
+    public const float scoreInterval = 200;
 
     public const float minDistanceToOther = 200;
+    public const float minDistanceToOther = 200;
+
+    public const float bossScoreInterval = 30000;
+    public const float bossMainGunInterval = 500;
+    public const float bossSideGunInterval = 400;
+
+    public const float bulletSpeed = .3f;
+
+    public const float playerFireSpeed = 1000f;
+    public const float maxTimeBetweenFuel = 10000f;
 
     //Font
     public const string fontPath = "font.otf";
@@ -40,7 +52,6 @@ class CoreParameters
 
     //Score
     public const int hudScoreWidth = 100;
-    public const int hudScoreHeight = 20;
     public const float hudScorePosX = 650f;
     public const float hudScorePosY = 20f;
     public const float hudScoreFontSize = 20f;
@@ -64,9 +75,9 @@ class CoreParameters
     public const int scoreTableCellWidth = 300;
     public const int scoreTableCellHeight = 50;
     public const int scoreTableNumOfRows = 20;
-    public const float scoreTablePosX = 300f;
     public const float scoreTablePosY = 100f;
 
     //SavefileName
     public const string savefileName = "SaveGame.txt";
+>>>>>>>>> Temporary merge branch 2
 }
