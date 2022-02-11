@@ -84,6 +84,9 @@
     <Compile Include="Asteroid.cs" />
     <Compile Include="Scene.cs" />
     <Compile Include="ScenePivot.cs" />
+    <Compile Include="Hud.cs" />
+    <Compile Include="Pickup.cs" />
+    <Compile Include="ScoreBoard.cs" />
     <Compile Include="Vehicle.cs" />
   </ItemGroup>
 </Project>
