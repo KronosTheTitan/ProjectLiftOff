@@ -6,10 +6,14 @@ using GXPEngine;
 
 class Player : Vehicle
 {
+    public int health;
+    public int fuel;
     float speed = 1;
     public Player(int iHealth,string filename) : base(iHealth,filename)
     {
         rotation = 90;
+        health = 3;
+        fuel = 60;
     }
     void Update()
     {

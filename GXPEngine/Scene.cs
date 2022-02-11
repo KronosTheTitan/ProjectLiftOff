@@ -5,7 +5,7 @@ using System.Text;
 using GXPEngine;
 class Scene : GameObject
 {
-    Player player;
+    public Player player;
     ScenePivot scenePivot;
     Asteroid[] latestAsteroids = new Asteroid[3];
     float timeLastAsteroid = 0;
