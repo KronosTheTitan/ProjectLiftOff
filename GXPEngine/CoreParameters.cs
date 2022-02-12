@@ -20,7 +20,7 @@ class CoreParameters
     public const float scoreInterval = 200;
 
     public const float minDistanceToOther = 200;
-    public const float minDistanceToOther = 200;
+    public const float maxDistanceToOther = 500;
 
     public const float bossScoreInterval = 30000;
     public const float bossMainGunInterval = 500;
@@ -52,6 +52,7 @@ class CoreParameters
 
     //Score
     public const int hudScoreWidth = 100;
+    public const int hudScoreHeight = 10;
     public const float hudScorePosX = 650f;
     public const float hudScorePosY = 20f;
     public const float hudScoreFontSize = 20f;
@@ -76,8 +77,8 @@ class CoreParameters
     public const int scoreTableCellHeight = 50;
     public const int scoreTableNumOfRows = 20;
     public const float scoreTablePosY = 100f;
+    public const float scoreTablePosX = 300f;
 
     //SavefileName
     public const string savefileName = "SaveGame.txt";
->>>>>>>>> Temporary merge branch 2
 }

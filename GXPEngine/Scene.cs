@@ -82,7 +82,7 @@ class Scene : GameObject
     void BossFightStart()
     {
         bossFight = true;
-        AddChild(new Boss(this));
+        //AddChild(new Boss(this));
     }
     public void BossFightEnd()
     {

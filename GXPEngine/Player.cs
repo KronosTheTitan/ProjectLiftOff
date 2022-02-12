@@ -34,7 +34,7 @@ class Player : Vehicle
     {
         if (Input.GetKey(Key.SPACE) && Time.time > lastShot + CoreParameters.playerFireSpeed)
         {
-            scene.AddChild(new Bullet(x, y, 0, this));
+            //scene.AddChild(new Bullet(x, y, 0, this));
             lastShot = Time.time;
         }
     }
