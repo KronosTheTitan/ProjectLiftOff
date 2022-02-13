@@ -28,7 +28,7 @@ class Vehicle : Sprite
                 if(gameObject is Asteroid)
                 {
                     whenHit();
-                    Console.WriteLine("Collision!");
+                    //Console.WriteLine("Collision!");
                     gameObject.LateDestroy();
                 }
                 if(gameObject is Bullet)
@@ -37,7 +37,7 @@ class Vehicle : Sprite
                     if(bullet.shooter != this)
                     {
                         whenHit();
-                        Console.WriteLine("Collision!");
+                        //Console.WriteLine("Collision!");
                         gameObject.LateDestroy();
                     }
                 }

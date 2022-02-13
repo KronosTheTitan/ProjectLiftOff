@@ -47,7 +47,7 @@ class Scene : GameObject
     {
         if (Time.time > timeLastAsteroid + Mathf.Clamp(CoreParameters.maxTimeBetweenAsteroids - score, CoreParameters.minTimeBetweenAsteroids, CoreParameters.maxTimeBetweenAsteroids))
              return;
-        Console.WriteLine("attempt spawn");
+        ///Console.WriteLine("attempt spawn");
         Asteroid asteroid = new Asteroid(this,Utils.Random(CoreParameters.minSpawnXAsteroids, CoreParameters.maxSpawnXAsteroids), player.y);
         foreach(Asteroid asteroid1 in latestAsteroids)
         {
@@ -82,7 +82,7 @@ class Scene : GameObject
     void BossFightStart()
     {
         bossFight = true;
-        //AddChild(new Boss(this));
+        AddChild(new Boss(this));
     }
     public void BossFightEnd()
     {
@@ -98,5 +98,10 @@ class Scene : GameObject
         AddChild(latestAsteroids[0]);
         AddChild(latestAsteroids[1]);
         AddChild(latestAsteroids[2]);
+    }
+
+    protected override void OnDestroy()
+    {
+        ((MyGame)game).LoadScoreBoard();
     }
 }

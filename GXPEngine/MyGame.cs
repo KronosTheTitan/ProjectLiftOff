@@ -14,18 +14,12 @@ public class MyGame : Game
 
     public void LoadScene(string pPlayerName = "")
     {
-        if (activeScoreBoard != null) //Destroy scoreboard
-        {
-            foreach (GameObject child in GetChildren())
-            {
-                child.LateDestroy();
-            }
-        }
-
         activeScene = new Scene();
         AddChild(activeScene);
+
         activeHud = new Hud(activeScene, pPlayerName);
         AddChild(activeHud);
+
         Pickup pickup = new Pickup("Star.png", 13, Pickup.Type.Health, activeHud, activeScene);
         pickup.SetXY(game.width, game.height / 2);
         activeScene.AddChild(pickup);
@@ -36,36 +30,28 @@ public class MyGame : Game
         int latestScore = activeHud != null ? activeHud.scoreCount : 0;
         string latestName = activeHud != null ? activeHud.playerName : "";
 
-        if (activeScene != null) //Destroy scene
-        {
-            foreach (GameObject child in GetChildren())
-            {
-                child.LateDestroy();
-            }
-        }
-
         activeScoreBoard = new ScoreBoard(latestScore, latestName);
         AddChild(activeScoreBoard);   
     }    
 
     void Update()
     {
-        if (Input.GetKeyDown(Key.Q)) //For Testing. Load new Scene
+        if (Input.GetKeyDown(Key.Q) && activeScene != null) //For Testing. Destroy Scene
         {
+            activeScene = null;
             foreach (GameObject child in GetChildren())
             {
                 child.LateDestroy();
             }
-            LoadScene();
         }
 
-        if (Input.GetKeyDown(Key.W))
+        if (Input.GetKeyDown(Key.W) && activeScoreBoard != null) //For Testing. Destroy ScoreBoard
         {
-            foreach (GameObject child in GetChildren()) //For Testing. Load new ScoreBoard
+            activeScoreBoard = null;
+            foreach (GameObject child in GetChildren())
             {
                 child.LateDestroy();
             }
-            LoadScoreBoard();
         }
     }
 
