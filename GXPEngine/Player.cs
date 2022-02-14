@@ -8,7 +8,7 @@ class Player : Vehicle
 {
     float speed = .75f;
     float lastShot;
-    public int fuel;
+    public float lastFuel = 0;
     public Player(int iHealth,string filename,Scene scene) : base(iHealth,filename,scene)
     {
         rotation = 90;
