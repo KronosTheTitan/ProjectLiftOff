@@ -84,7 +84,7 @@ class Hud : GameObject
         fuelbarFill.SetOrigin(fuelbarFill.width / 2, fuelbarFill.height / 2);
         fuelbarFill.scale = CoreParameters.hudFuelbarScale;
         fuelbarFill.SetXY(fuelbarHudElement.width, fuelbarHudElement.height);
-        fuelbarFill.width = activeScene.player.fuel;
+        fuelbarFill.width = Mathf.Round(100*(Time.time - activeScene.lastFuel)/CoreParameters.maxTimeBetweenFuel);
         fuelbarHudElement.AddChild(fuelbarFill);
         AddChild(fuelbarHudElement);
         fuelbarFillAmount = fuelbarFill.width;
@@ -107,8 +107,8 @@ class Hud : GameObject
         int clampedDeltaTime = Mathf.Min(Time.deltaTime, 40);
 
         //Score update
-        scoreCount++;
-        scoreHudElement.Text(scoreCount.ToString(), true);
+        //scoreCount++;
+        scoreHudElement.Text(activeScene.score.ToString(), true);
 
         //Fuel update
         if (fuelbarFill.width > 0) {
