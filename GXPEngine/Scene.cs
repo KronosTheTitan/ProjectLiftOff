@@ -5,23 +5,24 @@ using System.Text;
 using GXPEngine;
 public class Scene : GameObject
 {
+    public Hud hud;
+    public List<FuelTank> fuelTanks = new List<FuelTank>();
     public Player player;
-    ScenePivot scenePivot;
-    Asteroid[] latestAsteroids = new Asteroid[3];
-    float timeLastAsteroid = 0;
-    float lastScore = CoreParameters.scoreInterval;
     public int score = 0;
     public bool playerAlive = true;
-    float lastBoss = 0;
-    bool bossFight = false;
     public float lastFuel;
 
-    public Hud hud;
+    ScenePivot scenePivot;
+    Asteroid[] latestAsteroids = new Asteroid[3];
+    DestroyAnimation playerDestroyAnimation;
+    float timeLastAsteroid = 0;
+    float lastScore = CoreParameters.scoreInterval;
+    float lastBoss = 0;
+    bool bossFight = false;
 
-    public List<FuelTank> fuelTanks = new List<FuelTank>();
     public Scene()
     {
-        player = new Player(3, "triangle.png",this);
+        player = new Player(3, CoreParameters.playerPath+"base.png",this);
         player.SetXY(100, 600 / 2);
         AddChild(player);
         scenePivot = new ScenePivot();
@@ -38,6 +39,7 @@ public class Scene : GameObject
     }
     void Update()
     {
+        CheckForPlayerDeath();
         if (!bossFight)
         {
             SpawnAsteroid();
@@ -63,13 +65,13 @@ public class Scene : GameObject
     }
     void SpawnAsteroid()
     {
-        if (Time.time > timeLastAsteroid + Mathf.Clamp(CoreParameters.maxTimeBetweenAsteroids - score, CoreParameters.minTimeBetweenAsteroids, CoreParameters.maxTimeBetweenAsteroids))
+        if (Time.time > timeLastAsteroid + Mathf.Clamp(CoreParameters.maxTimeBetweenAsteroids - (score / CoreParameters.scoreImpactOnDifficulty), CoreParameters.minTimeBetweenAsteroids, CoreParameters.maxTimeBetweenAsteroids))
              return;
         ///Console.WriteLine("attempt spawn");
         Asteroid asteroid = new Asteroid(this,Utils.Random(CoreParameters.minSpawnXAsteroids, CoreParameters.maxSpawnXAsteroids), player.y);
         foreach(Asteroid asteroid1 in latestAsteroids)
         {
-            if(asteroid.DistanceTo(asteroid1) < Mathf.Clamp(CoreParameters.maxDistanceToOther-score, CoreParameters.minDistanceToOther,CoreParameters.maxDistanceToOther))
+            if(asteroid.DistanceTo(asteroid1) < Mathf.Clamp(CoreParameters.maxDistanceToOther-(score/CoreParameters.scoreImpactOnDifficulty), CoreParameters.minDistanceToOther,CoreParameters.maxDistanceToOther))
             {
                 asteroid.Destroy();
                 return;
@@ -95,6 +97,20 @@ public class Scene : GameObject
         {
             lastScore = Time.time;
             score++;
+        }
+    }
+    void CheckForPlayerDeath()
+    {
+        if (player.health <= 0 && playerDestroyAnimation == null)
+        {
+            player.Destroy();
+            playerDestroyAnimation = new DestroyAnimation(CoreParameters.playerPath + "death.png", 8, 1, 0, 8);
+            AddChildAt(playerDestroyAnimation, GetChildCount());
+            playerDestroyAnimation.SetXY(player.x, player.y);
+        }
+        else if (playerDestroyAnimation != null && playerDestroyAnimation.isOver)
+        {
+            playerAlive = false;
         }
     }
     void BossFightStart()

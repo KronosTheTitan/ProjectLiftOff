@@ -8,7 +8,6 @@ public class MyGame : Game
 
     public MyGame() : base(800, 600, false, true)
     {
-        //LoadScene();
         LoadScoreBoard();
     }
 

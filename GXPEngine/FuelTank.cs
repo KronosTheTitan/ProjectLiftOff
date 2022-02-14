@@ -9,7 +9,7 @@ public class FuelTank : Sprite
     Scene scene;
     public FuelTank(Scene iScene, string filename = "square.png") : base(filename)
     {
-        Console.WriteLine("attempt fuel spawn" + Time.time);
+        //Console.WriteLine("attempt fuel spawn" + Time.time);
         speed = .5f;
         scene = iScene;
         scene.AddChild(this);
@@ -23,7 +23,7 @@ public class FuelTank : Sprite
             Delete();
             return;
         }
-        Console.WriteLine("spawn succes");
+        //Console.WriteLine("spawn succes");
     }
     void Update()
     {
@@ -38,7 +38,7 @@ public class FuelTank : Sprite
     {
         scene.fuelTanks.Remove(this);
         scene.RemoveChild(this);
-        Console.WriteLine("deleted fuel tank" + scene.fuelTanks.Count);
+        //Console.WriteLine("deleted fuel tank" + scene.fuelTanks.Count);
         LateDestroy();
     }
 }

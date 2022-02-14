@@ -6,6 +6,8 @@ using GXPEngine;
 
 class CoreParameters
 {
+    public const string playerPath = "player/";
+
     public const float maxTimeBetweenAsteroids = 10000;
     public const float minTimeBetweenAsteroids = 1000;
 
@@ -17,7 +19,8 @@ class CoreParameters
     public const float minSpawnXAsteroids = 1000;
     public const float maxSpawnXAsteroids = 2500;
   
-    public const float scoreInterval = 500;
+    public const float scoreInterval = 10;
+    public const float scoreImpactOnDifficulty = 50;
 
     public const float minDistanceToOther = 200;
     public const float maxDistanceToOther = 500;
@@ -26,10 +29,12 @@ class CoreParameters
     public const float bossMainGunInterval = 500;
     public const float bossSideGunInterval = 400;
 
-    public const float bulletSpeed = .3f;
+    public const float bulletSpeed = 1f;
 
     public const float playerFireSpeed = 1000f;
     public const float maxTimeBetweenFuel = 10000f;
+
+    public const float playerAnimationSpeed = 0.015f;
 
     //Font
     public const string fontPath = "font.otf";

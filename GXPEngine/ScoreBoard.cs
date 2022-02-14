@@ -6,6 +6,9 @@ using GXPEngine;
 
 class ScoreBoard : GameObject
 {
+    EasyDraw startBtn;
+    EasyDraw newPlayerBtn;
+
     List<string> names = new List<string>();
     List<int> scores = new List<int>();
     int latestScore;
@@ -13,9 +16,6 @@ class ScoreBoard : GameObject
     bool typingNewName = false;
     float typeIndicatorTime;
     bool showTpeindicator = false;
-
-    EasyDraw startBtn;
-    EasyDraw newPlayerBtn;
 
     public ScoreBoard(int pLatestScore = 0, string pLatestName = "") : base()
     {
@@ -315,10 +315,9 @@ class ScoreBoard : GameObject
                 latestName += (Input.GetKeyDown(Key.ZERO) ? "0" : "");
             }
 
-            if (Input.GetKeyDown(Key.BACKSPACE))
+            if (Input.GetKeyDown(Key.BACKSPACE) && latestName.Length > 0)
             {
-                if(latestName.Length > 0)
-                    latestName = latestName.Substring(0, latestName.Length - 1);
+                latestName = latestName.Substring(0, latestName.Length - 1);
             }
 
             if (typeIndicatorTime > 500)

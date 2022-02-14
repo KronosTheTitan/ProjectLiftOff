@@ -92,6 +92,7 @@
     <Compile Include="DestroyAnimation.cs" />
     <Compile Include="Particle.cs" />
     <Compile Include="Emitter.cs" />
+    <Compile Include="PlayerAnimation.cs" />
     <Compile Include="Vehicle.cs" />
   </ItemGroup>
 </Project>

@@ -8,7 +8,7 @@ class Asteroid : Sprite
 {
     public float speed;
     Scene scene;
-    public Asteroid(Scene iScene,float iX,float iY, string filename = "circle.png") : base(filename)
+    public Asteroid(Scene iScene,float iX,float iY, string filename = "toxic_waste.png") : base(filename)
     {
         speed = .5f;
         scene = iScene;

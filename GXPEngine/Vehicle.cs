@@ -67,7 +67,7 @@ public class Vehicle : Sprite
             emitter.SetScale(0.02f, 0.025f, 0.001f).SetSpawnPosition(pAsteroid.x - 5, pAsteroid.x + 5, pAsteroid.y - 5, pAsteroid.y + 5).SetVelocity(0, 360, 0.02f, 0.03f).SetColors(0.12f, 0.5f, 0.12f, 0.8f);
             emitter.Emit(5);
 
-            DestroyAnimation asteroidDestroyAnimation = new DestroyAnimation("Explosion.png", 5, 1, pAsteroid.speed);
+            DestroyAnimation asteroidDestroyAnimation = new DestroyAnimation("Explosion.png", 5, 1, pAsteroid.speed, 3);
             parent.AddChildAt(asteroidDestroyAnimation, parent.GetChildCount());
             asteroidDestroyAnimation.SetXY(pAsteroid.x, pAsteroid.y);
         }
@@ -78,9 +78,10 @@ public class Vehicle : Sprite
         health--;
         if (health <= 0)
         {
-            if (this is Player)
-                scene.playerAlive = false;
-            Destroy();
+            if (!(this is Player))
+            {
+                Destroy();
+            } 
         }
     }
 }
