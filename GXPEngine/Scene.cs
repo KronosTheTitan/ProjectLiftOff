@@ -10,10 +10,15 @@ public class Scene : GameObject
     Asteroid[] latestAsteroids = new Asteroid[3];
     float timeLastAsteroid = 0;
     float lastScore = CoreParameters.scoreInterval;
-    int score = 0;
+    public int score = 0;
     public bool playerAlive = true;
     float lastBoss = 0;
     bool bossFight = false;
+    public float lastFuel;
+
+    public Hud hud;
+
+    public List<FuelTank> fuelTanks = new List<FuelTank>();
     public Scene()
     {
         player = new Player(3, "triangle.png",this);
@@ -41,6 +46,14 @@ public class Scene : GameObject
                 BossFightStart();
             }
             UpdateScore();
+            if(fuelTanks.Count < 3)
+            {
+                FuelTank fuel = new FuelTank(this);
+            }
+        }
+        else
+        {
+            player.lastFuel = Time.time;
         }
 
         if (!playerAlive)
