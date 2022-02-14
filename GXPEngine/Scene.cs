@@ -14,6 +14,10 @@ class Scene : GameObject
     public bool playerAlive = true;
     float lastBoss = 0;
     bool bossFight = false;
+
+    public Hud hud;
+
+    public List<FuelTank> fuelTanks = new List<FuelTank>();
     public Scene()
     {
         player = new Player(3, "triangle.png",this);
@@ -41,6 +45,14 @@ class Scene : GameObject
                 BossFightStart();
             }
             UpdateScore();
+            if(fuelTanks.Count < 3)
+            {
+                FuelTank fuel = new FuelTank(this);
+            }
+        }
+        else
+        {
+            player.lastFuel = Time.time;
         }
     }
     void SpawnAsteroid()

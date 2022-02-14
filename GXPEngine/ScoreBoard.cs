@@ -316,7 +316,8 @@ class ScoreBoard : GameObject
 
             if (Input.GetKeyDown(Key.BACKSPACE))
             {
-                latestName = latestName.Substring(0, latestName.Length - 1);
+                if(latestName.Length > 0)
+                    latestName = latestName.Substring(0, latestName.Length - 1);
             }
 
             if (typeIndicatorTime > 500)
