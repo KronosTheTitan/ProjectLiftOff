@@ -108,8 +108,7 @@ class Hud : GameObject
         int clampedDeltaTime = Mathf.Min(Time.deltaTime, 40);
 
         //Score update
-        scoreCount++;
-        scoreHudElement.Text(scoreCount.ToString(), true);
+        scoreHudElement.Text(activeScene.score.ToString(), true);
 
         //Fuel update
         if (fuelbarFill.width > 0) {
