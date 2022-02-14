@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 using GXPEngine;
-class Hud : GameObject
+public class Hud : GameObject
 {
     public int scoreCount = 0;
     public string playerName = "";

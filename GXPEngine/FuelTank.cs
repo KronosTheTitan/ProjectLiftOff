@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using GXPEngine;
-class FuelTank : Sprite
+public class FuelTank : Sprite
 {
     float speed;
     Scene scene;
