@@ -17,6 +17,7 @@ class Hud : GameObject
     public Hud(Scene pActiveScene, string pName) : base()
     {
         activeScene = pActiveScene;
+        activeScene.hud = this;
         playerName = pName;
 
         //Create hud element for health
@@ -58,7 +59,7 @@ class Hud : GameObject
 
     public void UpdateFuelbar(int pFuelbarBoost)
     {
-        fuelbarFillAmount += pFuelbarBoost;
+        fuelbarFillAmount = Mathf.Round(100 * (Time.time - activeScene.player.lastFuel) / CoreParameters.maxTimeBetweenFuel);
     }
 
     public void UpdateScore(int pScoreBoost)
@@ -107,7 +108,6 @@ class Hud : GameObject
         int clampedDeltaTime = Mathf.Min(Time.deltaTime, 40);
 
         //Score update
-        //scoreCount++;
         scoreHudElement.Text(activeScene.score.ToString(), true);
 
         //Fuel update
