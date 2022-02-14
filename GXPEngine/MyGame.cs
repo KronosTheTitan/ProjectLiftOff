@@ -18,7 +18,7 @@ public class MyGame : Game
         AddChild(activeScene);
 
         activeHud = new Hud(activeScene, pPlayerName);
-        AddChild(activeHud);
+        activeScene.AddChild(activeHud);
 
         Pickup pickup = new Pickup("Star.png", 13, Pickup.Type.Health, activeHud, activeScene);
         pickup.SetXY(game.width, game.height / 2);
@@ -33,27 +33,6 @@ public class MyGame : Game
         activeScoreBoard = new ScoreBoard(latestScore, latestName);
         AddChild(activeScoreBoard);   
     }    
-
-    void Update()
-    {
-        if (Input.GetKeyDown(Key.Q) && activeScene != null) //For Testing. Destroy Scene
-        {
-            activeScene = null;
-            foreach (GameObject child in GetChildren())
-            {
-                child.LateDestroy();
-            }
-        }
-
-        if (Input.GetKeyDown(Key.W) && activeScoreBoard != null) //For Testing. Destroy ScoreBoard
-        {
-            activeScoreBoard = null;
-            foreach (GameObject child in GetChildren())
-            {
-                child.LateDestroy();
-            }
-        }
-    }
 
     static void Main()
     {

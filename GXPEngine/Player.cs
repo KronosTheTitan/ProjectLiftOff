@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using GXPEngine;
 
-class Player : Vehicle
+public class Player : Vehicle
 {
     float speed = .75f;
     float lastShot;
@@ -34,7 +34,7 @@ class Player : Vehicle
     {
         if (Input.GetKey(Key.SPACE) && Time.time > lastShot + CoreParameters.playerFireSpeed)
         {
-            //scene.AddChild(new Bullet(x, y, 0, this));
+            scene.AddChild(new Bullet(x, y, 0, this));
             lastShot = Time.time;
         }
     }

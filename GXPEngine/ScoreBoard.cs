@@ -71,7 +71,7 @@ class ScoreBoard : GameObject
         newPlayerBtn.TextFont(font);
         newPlayerBtn.TextAlign(CenterMode.Min, CenterMode.Center);
         newPlayerBtn.Fill(Color.White);
-        newPlayerBtn.Text("New Player");
+        newPlayerBtn.Text(latestName == "" ? "New Player" : latestName);
         newPlayerBtn.SetXY(CoreParameters.scoreBoardNewPlayerrBtnPosX, CoreParameters.scoreBoardNewPlayerrBtnPosY);
         AddChild(newPlayerBtn);
     }
@@ -137,7 +137,7 @@ class ScoreBoard : GameObject
                         string value = line.Substring(splitPos + 1);
                         string[] numbers = value.Split(',');
 
-                        switch (key) //Read all values from saveFile into PlayerData
+                        switch (key) //Read all values from saveFile
                         {
                             case "names":
                                 foreach (string number in numbers)
@@ -302,6 +302,7 @@ class ScoreBoard : GameObject
                 latestName += (Input.GetKeyDown(Key.W) ? "W" : "");
                 latestName += (Input.GetKeyDown(Key.X) ? "X" : "");
                 latestName += (Input.GetKeyDown(Key.Y) ? "Y" : "");
+                latestName += (Input.GetKeyDown(Key.Z) ? "Z" : "");
                 latestName += (Input.GetKeyDown(Key.ONE) ? "1" : "");
                 latestName += (Input.GetKeyDown(Key.TWO) ? "2" : "");
                 latestName += (Input.GetKeyDown(Key.THREE) ? "3" : "");

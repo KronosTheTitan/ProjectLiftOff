@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using GXPEngine;
-class Scene : GameObject
+public class Scene : GameObject
 {
     public Player player;
     ScenePivot scenePivot;
@@ -41,6 +41,11 @@ class Scene : GameObject
                 BossFightStart();
             }
             UpdateScore();
+        }
+
+        if (!playerAlive)
+        {
+            LateDestroy();
         }
     }
     void SpawnAsteroid()

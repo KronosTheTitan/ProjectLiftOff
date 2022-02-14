@@ -6,7 +6,7 @@ using GXPEngine;
 
 class Asteroid : Sprite
 {
-    float speed;
+    public float speed;
     Scene scene;
     public Asteroid(Scene iScene,float iX,float iY, string filename = "circle.png") : base(filename)
     {
@@ -32,7 +32,7 @@ class Asteroid : Sprite
 
     }
     void Delete()
-    {
+    { 
         scene.RemoveChild(this);
         Destroy();
     }
