@@ -1,0 +1,2 @@
+names=TEST2,G,TEST,A,B,C
+scores=1568,260,170,6,5,4

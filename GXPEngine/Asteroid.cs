@@ -15,7 +15,7 @@ class Asteroid : Sprite
         x = iX;
         y = iY;
         SetOrigin(width / 2, height / 2);
-        Console.WriteLine("new asteroid");
+        //Console.WriteLine("new asteroid");
     }
     void Update()
     {

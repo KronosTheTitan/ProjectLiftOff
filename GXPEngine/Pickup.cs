@@ -49,8 +49,7 @@ class Pickup : AnimationSprite
 
         Move(-moveSpeed * clampedDeltaTime, 0); //Move pickup
 
-        if (x + activeScene.x < 0
-            || x + activeScene.x > game.width / game.scaleX)
+        if (x + activeScene.x < 0)
         {
             LateDestroy(); //Pickup is offscreen
         }

@@ -19,6 +19,9 @@ class CoreParameters
   
     public const float scoreInterval = 200;
 
+    public const float minDistanceToOther = 200;
+    public const float maxDistanceToOther = 500;
+
     public const float bossScoreInterval = 30000;
     public const float bossMainGunInterval = 500;
     public const float bossSideGunInterval = 400;
@@ -50,7 +53,7 @@ class CoreParameters
     //Score
     public const int hudScoreWidth = 100;
     public const int hudScoreHeight = 20;
-    public const float hudScorePosX = 700f;
+    public const float hudScorePosX = 650f;
     public const float hudScorePosY = 20f;
     public const float hudScoreFontSize = 20f;
 
@@ -62,17 +65,37 @@ class CoreParameters
     public const float pickupAnimationSpeed = 0.015f;
 
     //Scoreboard
+    public const int playerNameMaxLength = 15;
+
     //Title
-    public const int scoreBoardTitleWidth = 300;
+    public const int scoreBoardTitleWidth = 400;
     public const int scoreBoardTitleHeight = 50;
     public const float scoreBoardTitlePosX = 400f;
     public const float scoreBoardTitlePosY = 50f;
-    public const float scoreBoardTitleFontSize = 20f;
+    public const float scoreBoardTitleFontSize = 30f;
 
     //Table
     public const int scoreTableCellWidth = 300;
     public const int scoreTableCellHeight = 50;
-    public const int scoreTableNumOfRows = 20;
+    public const int scoreTableNumOfRows = 6;
+    public const float scoreTablePosY = 100f;
     public const float scoreTablePosX = 300f;
-    public const float scoreTablePosY = 300f;
+    public const float scoreTableFontSize = 20f;
+
+    //SavefileName
+    public const string savefileName = "SaveGame.txt";
+
+    //StartBtn
+    public const int scoreBoardStartBtnWidth = 200;
+    public const int scoreBoardStartBtnHeight = 100;
+    public const float scoreBoardStartBtnPosX = 500f;
+    public const float scoreBoardStartBtnPosY = 500f;
+    public const float scoreBoardStartBtnFontSize = 15f;
+
+    //NewPlayerrBtn
+    public const int scoreBoardNewPlayerrBtnWidth = 330;
+    public const int scoreBoardNewPlayerrBtnHeight = 100;
+    public const float scoreBoardNewPlayerrBtnPosX = 200f;
+    public const float scoreBoardNewPlayerrBtnPosY = 500f;
+    public const float scoreBoardNewPlayerrBtnFontSize = 15f;
 }

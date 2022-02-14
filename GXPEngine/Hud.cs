@@ -3,6 +3,7 @@ using GXPEngine;
 class Hud : GameObject
 {
     public int scoreCount = 0;
+    public string playerName = "";
 
     //Hud elemets
     EasyDraw fuelbarHudElement;
@@ -13,9 +14,10 @@ class Hud : GameObject
     Sprite fuelbarFill;
     float fuelbarFillAmount;
     
-    public Hud(Scene pActiveScene) : base()
+    public Hud(Scene pActiveScene, string pName) : base()
     {
         activeScene = pActiveScene;
+        playerName = pName;
 
         //Create hud element for health
         CreateHealthElement();
