@@ -54,6 +54,8 @@ class Vehicle : Sprite
     public virtual void whenHit()
     {
         health--;
+        if (this is Player)
+            scene.hud.UpdateHealth(-1);
         if (health <= 0)
         {
             if (this is Player)
