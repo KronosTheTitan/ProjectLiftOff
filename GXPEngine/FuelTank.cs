@@ -13,7 +13,7 @@ class FuelTank : Sprite
         speed = .5f;
         scene = iScene;
         scene.AddChild(this);
-        scene.fuelTanks.Add(this);
+        //scene.fuelTanks.Add(this);
         SetOrigin(width / 2, height / 2);
         x = 1000;
         y = Utils.Random(0 + width / 2, 600 - width / 2);
@@ -36,7 +36,7 @@ class FuelTank : Sprite
     }
     public void Delete()
     {
-        scene.fuelTanks.Remove(this);
+        //scene.fuelTanks.Remove(this);
         scene.RemoveChild(this);
         Console.WriteLine("deleted fuel tank" + scene.fuelTanks.Count);
         LateDestroy();

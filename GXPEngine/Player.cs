@@ -8,11 +8,12 @@ class Player : Vehicle
 {
     float speed = .75f;
     float lastShot;
-    public float lastFuel = 0;
+    public float lastFuel;
     public Player(int iHealth,string filename,Scene scene) : base(iHealth,filename,scene)
     {
         rotation = 90;
         health = iHealth;
+        lastFuel = Time.time;
     }
     public override void Update()
     {

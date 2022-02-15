@@ -41,19 +41,14 @@ class Vehicle : Sprite
                         gameObject.LateDestroy();
                     }
                 }
-                if (gameObject is FuelTank && this is Player)
-                {
-                    Player player = (Player)this;
-                    player.lastFuel = Time.time;
-                    FuelTank fuelTank = (FuelTank)gameObject;
-                    fuelTank.Delete();
-                }
             }
         }
     }
     public virtual void whenHit()
     {
         health--;
+        if (this is Player)
+            scene.hud.UpdateHealth(-1);
         if (health <= 0)
         {
             if (this is Player)
