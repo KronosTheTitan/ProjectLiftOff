@@ -28,6 +28,7 @@ public class Player : Vehicle
         rotation = 90;
         health = iHealth;
         CreateChildren();
+        lastFuel = Time.time;
     }
 
     public override void Update()

@@ -20,6 +20,9 @@ public class Scene : GameObject
     float lastBoss = 0;
     bool bossFight = false;
 
+    public Hud hud;
+
+    public List<Pickup> fuelTanks = new List<Pickup>();
     public Scene()
     {
         player = new Player(3, CoreParameters.playerPath+"base.png",this);
@@ -50,7 +53,8 @@ public class Scene : GameObject
             UpdateScore();
             if(fuelTanks.Count < 3)
             {
-                FuelTank fuel = new FuelTank(this);
+                Pickup fuel = new Pickup("square.png", 0, Pickup.Type.Fuel, hud, this);
+                fuelTanks.Add(fuel);
             }
         }
         else

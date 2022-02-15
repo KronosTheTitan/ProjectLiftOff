@@ -65,7 +65,7 @@ class CoreParameters
 
     //Pickup
     public const float pickupScale = 2f;
-    public const float pickupMoveSpeed = 0.2f;
+    public const float pickupMoveSpeed = 0.5f;
     public const int pickupHealBoost = 1;
     public const int pickupFuelBoost = 50;
     public const float pickupAnimationSpeed = 0.015f;

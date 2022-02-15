@@ -32,7 +32,7 @@ public class Hud : GameObject
 
     public void UpdateHealth(int healthBoost)
     {
-        int playerHealth = activeScene.player.health + healthBoost; //New player health
+        int playerHealth = activeScene.player.health; //New player health
 
         foreach (Sprite child in healthHudElement.GetChildren()) //Empty old healthbar
         {
