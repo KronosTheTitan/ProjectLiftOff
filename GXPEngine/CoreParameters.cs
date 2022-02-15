@@ -35,6 +35,7 @@ class CoreParameters
     public const float maxTimeBetweenFuel = 10000f;
 
     public const float playerAnimationSpeed = 0.015f;
+    public const float playerSparkInterval = 100f;
 
     //Font
     public const string fontPath = "font.otf";

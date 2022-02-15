@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using GXPEngine;
 
 public class Player : Vehicle
@@ -21,6 +19,7 @@ public class Player : Vehicle
     float speed = .75f;
     float lastShot;
     bool isInSpecialState = true;
+    float lastSpark;
 
     public Player(int iHealth,string filename,Scene scene) : base(iHealth,filename,scene)
     {
@@ -30,8 +29,20 @@ public class Player : Vehicle
         health = iHealth;
         CreateChildren();
     }
+
     public override void Update()
     {
+        if (health == 1 && Time.time > lastSpark + CoreParameters.playerSparkInterval)
+        {
+            lastSpark = Time.time;
+            Emitter emitter = new Emitter("sparks.png", 20, (Scene)parent, 0);
+            emitter.SetScale(0.03f, 0.035f, 0.001f).SetSpawnPosition(x - 20, x + 20, y - 20, y + 20).SetVelocity(0, 360, 0.02f, 0.03f).SetColors(0.92f, 0.78f, 0.19f, 0.8f);
+            emitter.Emit(1);
+
+            emitter = new Emitter("smoke.png", 500, (Scene)parent, 0);
+            emitter.SetScale(0.03f, 0.035f, 0.001f).SetSpawnPosition(x - 20, x + 20, y - 20, y + 20).SetVelocity(0, 360, 0.02f, 0.03f).SetColors(0.2f, 0.2f, 0.2f, 0.8f);
+            emitter.Emit(2);
+        }
         MovePlayer();
         Shoot();
         UpdateFuel();
@@ -73,6 +84,7 @@ public class Player : Vehicle
             SetCurrentState(State.Idle);
         }
     }
+
     public override void Shoot()
     {
         if (Input.GetKey(Key.SPACE) && Time.time > lastShot + CoreParameters.playerFireSpeed)
@@ -86,6 +98,7 @@ public class Player : Vehicle
             lastShot = Time.time;
         }
     }
+
     public void UpdateFuel()
     {
         if (Time.time > lastFuel + CoreParameters.maxTimeBetweenFuel)
@@ -94,7 +107,6 @@ public class Player : Vehicle
             if (health <= 0)
             {
                 if (this is Player)
-                    Console.WriteLine("thats why");
                     scene.playerAlive = false;
                 Destroy();
             }

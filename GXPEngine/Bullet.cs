@@ -6,13 +6,12 @@ using GXPEngine;
 class Bullet : Sprite
 {
     public Vehicle shooter;
+
     public Bullet(float iX, float iY, float direction, Vehicle iShooter, string fileName = CoreParameters.playerPath + "laser.png") : base(fileName)
     {
-        x = iX;
-        y = iY;
         shooter = iShooter;
         SetOrigin(width / 2, height / 2);
-        SetXY(x + shooter.width / 2, y);
+        SetXY(iX + shooter.width / 2, iY);
         SetScaleXY(0.5f, 0.5f);
         rotation = direction;
     }

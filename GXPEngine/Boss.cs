@@ -21,7 +21,7 @@ class Boss : Vehicle
         if(x > 700)
         {
             x -= speed * Time.deltaTime;
-            Console.WriteLine(x);
+            //Console.WriteLine(x);
         }
         else
         {
