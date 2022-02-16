@@ -46,9 +46,9 @@ class Particle : Sprite
     void ShouldRender()
     {
         if (x + activeScene.x < -200
-             || x + activeScene.x > game.width / game.scaleX + 200
-             || y + activeScene.y < -200
-             || y + activeScene.y > game.height / game.scaleY + 200)
+                || x + activeScene.x > game.width / game.scaleX + 200
+                || y + activeScene.y < -200
+                || y + activeScene.y > game.height / game.scaleY + 200)
         {
             LateDestroy();
         }

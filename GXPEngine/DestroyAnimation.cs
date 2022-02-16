@@ -1,6 +1,6 @@
 ﻿using GXPEngine;
 
-public class DestroyAnimation : AnimationSprite
+class DestroyAnimation : AnimationSprite
 {
     //Interface
     bool _isOver = false;

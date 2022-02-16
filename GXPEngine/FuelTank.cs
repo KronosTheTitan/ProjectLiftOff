@@ -8,7 +8,7 @@ class FuelTank : Pickup
     Scene scene;
     public FuelTank(Scene iScene, string filename = "square.png") : base(filename,iScene)
     {
-        Console.WriteLine("attempt fuel spawn" + Time.time);
+        //Console.WriteLine("attempt fuel spawn" + Time.time);
         scene = iScene;
         scene.AddChild(this);
         scene.fuelTanks.Add(this);
@@ -21,7 +21,7 @@ class FuelTank : Pickup
             Delete();
             return;
         }
-        Console.WriteLine("spawn succes");
+        //Console.WriteLine("spawn succes");
     }
     public override void OnPickUp()
     {

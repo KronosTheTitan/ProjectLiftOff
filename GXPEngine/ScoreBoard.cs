@@ -166,8 +166,8 @@ class ScoreBoard : GameObject
     }
 
     /**
-    void CheckForMultipleRecord(int pRecordNumber)
-    {
+void CheckForMultipleRecord(int pRecordNumber)
+{
         string newLatestName = pRecordNumber == 0 ? latestName : latestName.Substring(latestName.Length-3) + "("+pRecordNumber.ToString()+")";
 
         if (names.Contains(latestName))
@@ -178,7 +178,7 @@ class ScoreBoard : GameObject
             latestName = newLatestName;
             return;
         }
-    }
+}
     **/
 
     void SaveGame(string pFilename)
@@ -216,7 +216,8 @@ class ScoreBoard : GameObject
                     names.Add(latestName);
                 }
 
-                if (names.Count > CoreParameters.scoreTableNumOfRows) {
+                if (names.Count > CoreParameters.scoreTableNumOfRows)
+                {
                     scores.RemoveRange(CoreParameters.scoreTableNumOfRows, scores.Count - CoreParameters.scoreTableNumOfRows);
                     names.RemoveRange(CoreParameters.scoreTableNumOfRows, names.Count - CoreParameters.scoreTableNumOfRows);
                 }

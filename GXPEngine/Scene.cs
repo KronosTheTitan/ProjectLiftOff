@@ -19,6 +19,7 @@ class Scene : GameObject
     float lastScore = CoreParameters.scoreInterval;
     float lastBoss = 0;
     bool bossFight = false;
+
     public Scene()
     {
         player = new Player(3, "triangle.png", this);
@@ -27,7 +28,6 @@ class Scene : GameObject
         scenePivot = new ScenePivot();
         AddChild(scenePivot);
         timeLastAsteroid = Time.time;
-        score = 0;
 
         for (int i = 0; i < latestAsteroids.Length; i++)
         {
@@ -63,7 +63,7 @@ class Scene : GameObject
     {
         if (Time.time > timeLastAsteroid + Mathf.Clamp(CoreParameters.maxTimeBetweenAsteroids - score, CoreParameters.minTimeBetweenAsteroids, CoreParameters.maxTimeBetweenAsteroids))
              return;
-        Console.WriteLine("attempt spawn");
+        //Console.WriteLine("attempt spawn");
         Asteroid asteroid = new Asteroid(this,Utils.Random(CoreParameters.minSpawnXAsteroids, CoreParameters.maxSpawnXAsteroids), player.y, Asteroid.Type.Bundle);
         foreach(Asteroid asteroid1 in latestAsteroids)
         {
@@ -109,7 +109,7 @@ class Scene : GameObject
 
     void UpdateScore()
     {
-        if (!playerAlive && Time.time > lastScore + CoreParameters.scoreInterval)
+        if (playerAlive && Time.time > lastScore + CoreParameters.scoreInterval)
         {
             lastScore = Time.time;
             score++;
