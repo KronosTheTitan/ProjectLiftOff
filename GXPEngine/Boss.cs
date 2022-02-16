@@ -8,12 +8,16 @@ class Boss : Vehicle
     float speed = .3f;
     float lastShotMain;
     float lastShot;
-    public Boss(Scene iScene, string fileName = "triangle.png") : base(10, fileName, iScene)
+    BossAnimation bossAnimation;
+
+    public Boss(Scene iScene, string fileName = "bossBase.png") : base(10, fileName, iScene)
     {
-        y = 300;
-        x = 2000;
-        SetScaleXY(6, 3);
-        rotation = 270;
+        alpha = 0;
+        scale = 5f;
+        y = (game.height / game.scaleY) / 2;
+        x = game.width / game.scaleX;
+        bossAnimation = new BossAnimation();
+        AddChild(bossAnimation);
     }
 
     public override void Update()
@@ -31,7 +35,7 @@ class Boss : Vehicle
     }
     public override void whenHit()
     {
-        health--;
+        //health--;
         if (health <= 0)
         {
             ExtraHealth Ehealth = new ExtraHealth("health.png", scene);

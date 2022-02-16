@@ -36,6 +36,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BossAnimation.cs" />
     <Compile Include="Boss.cs" />
     <Compile Include="Bullet.cs" />
     <Compile Include="CoreParameters.cs" />

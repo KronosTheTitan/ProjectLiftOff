@@ -48,7 +48,7 @@ class Hud : GameObject
             }
             else
             {
-                sprite = new Sprite("health.png", false, false);
+                sprite = new Sprite("healthblack.png", false, false);
             }
             sprite.SetOrigin(sprite.width / 2, sprite.height / 2);
             sprite.scale = CoreParameters.hudHealthScale;

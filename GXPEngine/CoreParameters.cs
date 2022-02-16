@@ -28,7 +28,7 @@ class CoreParameters
     public const float bossMainGunInterval = 500;
     public const float bossSideGunInterval = 400;
 
-    public const float bulletSpeed = 1f;
+    public const float bulletSpeed = 0.5f;
 
     public const float playerFireSpeed = 500f;
     public const float maxTimeBetweenFuel = 10000f;
@@ -37,7 +37,7 @@ class CoreParameters
     public const float playerSparkInterval = 100f;
 
     //Font
-    public const string fontPath = "font.otf";
+    public const string fontPath = "font.ttf";
 
     //Hud
     //Health
