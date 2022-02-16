@@ -28,7 +28,7 @@ class CoreParameters
     public const float bossMainGunInterval = 500;
     public const float bossSideGunInterval = 400;
 
-    public const float bulletSpeed = 1f;
+    public const float bulletSpeed = .6f;
 
     public const float playerFireSpeed = 500f;
     public const float maxTimeBetweenFuel = 10000f;

@@ -15,18 +15,18 @@ class Bullet : Sprite
         SetScaleXY(0.5f, 0.5f);
         rotation = direction;
         scene = pScene;
-        Console.WriteLine("fired shot");
     }
     public void Update()
     {
         Move(CoreParameters.bulletSpeed * Time.deltaTime, 0);
 
-        if (x < -10 || x > game.width)
+        if (x < -10 || x > game.width/scaleX)
         {
             if (scene != null && scene.playerBullets.Contains(this))
             {
                 scene.playerBullets.Remove(this);
             }
+            Console.WriteLine("fired shot");
             Destroy();
         }
     }

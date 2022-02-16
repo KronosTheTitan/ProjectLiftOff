@@ -34,7 +34,7 @@ class Boss : Vehicle
         health--;
         if (health <= 0)
         {
-            ExtraHealth Ehealth = new ExtraHealth("star.png", scene);
+            ExtraHealth Ehealth = new ExtraHealth("health.png", scene);
             scene.AddChild(Ehealth);
             Ehealth.x = x;
             Ehealth.y = y;
@@ -47,13 +47,13 @@ class Boss : Vehicle
         if(Time.time > lastShotMain + CoreParameters.bossMainGunInterval)
         {
             float dirToPlayer = Mathf.Atan2(scene.player.y - y, scene.player.x - x) * 180 / (Mathf.PI);
-            scene.AddChild(new Bullet(x, y, dirToPlayer, this));
+            scene.AddChild(new Bullet(x, y, dirToPlayer, this, pScene: scene));
             lastShotMain = Time.time;
         }
         if(Time.time > lastShot + CoreParameters.bossSideGunInterval)
         {
-            scene.AddChild(new Bullet(x, y+width/2, 180, this));
-            scene.AddChild(new Bullet(x, y-width/2, 180, this));
+            scene.AddChild(new Bullet(x, y+width/2, 180, this,pScene: scene));
+            scene.AddChild(new Bullet(x, y-width/2, 180, this,pScene: scene));
             lastShot = Time.time;
         }
     }
