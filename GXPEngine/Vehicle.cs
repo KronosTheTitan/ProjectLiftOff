@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using GXPEngine;
 
-class Vehicle : Sprite
+public class Vehicle : Sprite
 {
     public int health;
     public Scene scene;
-    public Vehicle(int iHealth,string fileName,Scene iScene) : base(fileName)
+
+    public Vehicle(int iHealth,string fileName, Scene iScene) : base(fileName)
     {
         health = iHealth;
         scene = iScene;
@@ -25,9 +26,13 @@ class Vehicle : Sprite
         {
             foreach(GameObject gameObject in collisions)
             {
-                if(gameObject is Asteroid)
+                if(gameObject is Asteroid && scene != null)
                 {
+                    ScreenShaker screenShaker = new ScreenShaker(300, 3, (Scene)parent);
+                    AddChild(screenShaker);
+
                     whenHit();
+
                     //Console.WriteLine("Collision!");
                     gameObject.LateDestroy();
                 }
@@ -44,6 +49,7 @@ class Vehicle : Sprite
             }
         }
     }
+
     public virtual void whenHit()
     {
         health--;
@@ -51,9 +57,10 @@ class Vehicle : Sprite
             scene.hud.UpdateHealth(-1);
         if (health <= 0)
         {
-            if (this is Player)
-                scene.playerAlive = false;
-            Destroy();
+            if (!(this is Player))
+            {
+                Destroy();
+            } 
         }
     }
 }

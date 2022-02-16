@@ -14,14 +14,14 @@ class Boss : Vehicle
         x = 2000;
         SetScaleXY(6, 3);
         rotation = 270;
-        Console.WriteLine("test");
     }
+
     public override void Update()
     {
         if(x > 700)
         {
             x -= speed * Time.deltaTime;
-            Console.WriteLine(x);
+            //Console.WriteLine(x);
         }
         else
         {

@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 using GXPEngine;
-class Hud : GameObject
+public class Hud : GameObject
 {
     public int scoreCount = 0;
     public string playerName = "";
@@ -13,7 +13,7 @@ class Hud : GameObject
     Scene activeScene;
     Sprite fuelbarFill;
     float fuelbarFillAmount;
-    
+
     public Hud(Scene pActiveScene, string pName) : base()
     {
         activeScene = pActiveScene;
@@ -44,11 +44,11 @@ class Hud : GameObject
         {
             if (playerHealth >= i)
             {
-                sprite = new Sprite("StaticHeart.png", false, false);
+                sprite = new Sprite("health.png", false, false);
             }
             else
             {
-                sprite = new Sprite("StaticHeartEmpty.png", false, false);
+                sprite = new Sprite("health.png", false, false);
             }
             sprite.SetOrigin(sprite.width / 2, sprite.height / 2);
             sprite.scale = CoreParameters.hudHealthScale;
@@ -85,7 +85,7 @@ class Hud : GameObject
         fuelbarFill.SetOrigin(fuelbarFill.width / 2, fuelbarFill.height / 2);
         fuelbarFill.scale = CoreParameters.hudFuelbarScale;
         fuelbarFill.SetXY(fuelbarHudElement.width, fuelbarHudElement.height);
-        fuelbarFill.width = Mathf.Round(100*(Time.time - activeScene.player.lastFuel)/CoreParameters.maxTimeBetweenFuel);
+        fuelbarFill.width = Mathf.Round(100 * (Time.time - activeScene.player.lastFuel) / CoreParameters.maxTimeBetweenFuel);
         fuelbarHudElement.AddChild(fuelbarFill);
         AddChild(fuelbarHudElement);
         fuelbarFillAmount = fuelbarFill.width;
@@ -108,10 +108,12 @@ class Hud : GameObject
         int clampedDeltaTime = Mathf.Min(Time.deltaTime, 40);
 
         //Score update
-        scoreHudElement.Text(activeScene.score.ToString(), true);
+        scoreCount = activeScene.score;
+        scoreHudElement.Text(scoreCount.ToString(), true);
 
         //Fuel update
-        if (fuelbarFill.width > 0) {
+        if (fuelbarFill.width > 0)
+        {
             int oldFillAmount = (int)fuelbarFillAmount;
             fuelbarFillAmount -= CoreParameters.hudFuelbarLooseOverTime * clampedDeltaTime;
             if (oldFillAmount != (int)fuelbarFillAmount)
@@ -120,7 +122,8 @@ class Hud : GameObject
                 fuelbarFill.x = oldFillAmount - fuelbarFill.width / 2;
 
             }
-        } else if (fuelbarFill.width < 0)
+        }
+        else if (fuelbarFill.width < 0)
         {
             fuelbarFill.width = 0;
         }

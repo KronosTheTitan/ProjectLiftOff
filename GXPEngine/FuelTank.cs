@@ -31,7 +31,7 @@ class FuelTank : Pickup
     {
         scene.fuelTanks.Remove(this);
         scene.RemoveChild(this);
-        Console.WriteLine("deleted fuel tank" + scene.fuelTanks.Count);
+        //Console.WriteLine("deleted fuel tank" + scene.fuelTanks.Count);
         LateDestroy();
     }
 }
