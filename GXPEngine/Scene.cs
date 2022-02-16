@@ -10,6 +10,7 @@ class Scene : GameObject
     public bool playerAlive = true;
     public Hud hud;
     public List<FuelTank> fuelTanks = new List<FuelTank>();
+
     public List<Bullet> playerBullets = new List<Bullet>();
     ScenePivot scenePivot;
     Asteroid[] latestAsteroids = new Asteroid[3];
