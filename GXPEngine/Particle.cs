@@ -1,7 +1,7 @@
 ﻿using GXPEngine;
 using System;
 
-public class Particle : Sprite
+class Particle : Sprite
 {
     //Object reference passed by constructor
     Scene activeScene;

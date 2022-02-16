@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using GXPEngine;
 
-public class Vehicle : Sprite
+class Vehicle : Sprite
 {
     public int health;
     public Scene scene;

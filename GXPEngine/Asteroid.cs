@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using GXPEngine;
 
-public class Asteroid : Sprite
+class Asteroid : Sprite
 {    
     public enum Type
     {

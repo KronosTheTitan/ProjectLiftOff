@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using GXPEngine;
-public class Scene : GameObject
+class Scene : GameObject
 {
     public Player player;
     public int score = 0;
     public bool playerAlive = true;
     public Hud hud;
     public List<FuelTank> fuelTanks = new List<FuelTank>();
+
     public List<Bullet> playerBullets = new List<Bullet>();
     ScenePivot scenePivot;
     Asteroid[] latestAsteroids = new Asteroid[3];
@@ -18,10 +19,6 @@ public class Scene : GameObject
     float lastScore = CoreParameters.scoreInterval;
     float lastBoss = 0;
     bool bossFight = false;
-
-    public Hud hud;
-
-    public List<FuelTank> fuelTanks = new List<FuelTank>();
     public Scene()
     {
         player = new Player(3, "triangle.png", this);

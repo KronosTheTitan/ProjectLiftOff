@@ -1,7 +1,7 @@
 ﻿using GXPEngine;
 using System;
 
-public class ScreenShaker : GameObject
+class ScreenShaker : GameObject
 {
     float shakeTimer;
     float shakeIntensity;

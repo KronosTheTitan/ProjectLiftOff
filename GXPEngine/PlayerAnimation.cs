@@ -1,7 +1,7 @@
 ﻿using System;
 using GXPEngine;
 
-public class PlayerAnimation : AnimationSprite
+class PlayerAnimation : AnimationSprite
 {
     //Interface
     private Player.State _state;
