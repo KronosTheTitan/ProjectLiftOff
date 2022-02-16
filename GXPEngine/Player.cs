@@ -121,7 +121,7 @@ class Player : Vehicle
                     scene.playerAlive = false;
                 } else
                 {
-                    Destroy();
+                    LateDestroy();
                 }
             }
         }

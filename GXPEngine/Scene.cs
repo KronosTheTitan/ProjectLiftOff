@@ -113,6 +113,7 @@ class Scene : GameObject
         {
             lastScore = Time.time;
             score++;
+            hud.UpdateScore(1);
         }
     }
     void BossFightStart()
