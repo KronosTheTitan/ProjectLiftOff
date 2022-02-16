@@ -26,10 +26,8 @@ public class Vehicle : Sprite
         {
             foreach(GameObject gameObject in collisions)
             {
-                if(gameObject is Asteroid)
+                if(gameObject is Asteroid && scene != null)
                 {
-                    CreateAsteroidDestroyAnimation(((Asteroid)gameObject));
-
                     ScreenShaker screenShaker = new ScreenShaker(300, 3, (Scene)parent);
                     AddChild(screenShaker);
 
@@ -49,20 +47,6 @@ public class Vehicle : Sprite
                     }
                 }
             }
-        }
-    }
-
-    void CreateAsteroidDestroyAnimation(Asteroid pAsteroid)
-    {
-        if ((Scene)parent != null)
-        {
-            Emitter emitter = new Emitter("smoke.png", 1000, (Scene)parent, pAsteroid.speed);
-            emitter.SetScale(0.02f, 0.025f, 0.001f).SetSpawnPosition(pAsteroid.x - 5, pAsteroid.x + 5, pAsteroid.y - 5, pAsteroid.y + 5).SetVelocity(0, 360, 0.02f, 0.03f).SetColors(0.12f, 0.5f, 0.12f, 0.8f);
-            emitter.Emit(5);
-
-            DestroyAnimation asteroidDestroyAnimation = new DestroyAnimation("Explosion.png", 5, 1, pAsteroid.speed, 3);
-            parent.AddChildAt(asteroidDestroyAnimation, parent.GetChildCount());
-            asteroidDestroyAnimation.SetXY(pAsteroid.x, pAsteroid.y);
         }
     }
 

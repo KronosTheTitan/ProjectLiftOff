@@ -43,7 +43,7 @@ class Pickup : AnimationSprite
                 case Type.Fuel:
                     hud.UpdateFuelbar(CoreParameters.pickupFuelBoost); //Add 30 to fuel
                     activeScene.player.lastFuel = Time.time;
-                    activeScene.fuelTanks.Remove(this);
+                    //activeScene.fuelTanks.Remove(this);
                     activeScene.RemoveChild(this);
                     break;
             }

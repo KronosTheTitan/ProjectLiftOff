@@ -19,8 +19,7 @@ class CoreParameters
     public const float minSpawnXAsteroids = 1000;
     public const float maxSpawnXAsteroids = 2500;
   
-    public const float scoreInterval = 10;
-    public const float scoreImpactOnDifficulty = 50;
+    public const float scoreInterval = 200;
 
     public const float minDistanceToOther = 200;
     public const float maxDistanceToOther = 500;
@@ -31,7 +30,7 @@ class CoreParameters
 
     public const float bulletSpeed = 1f;
 
-    public const float playerFireSpeed = 1000f;
+    public const float playerFireSpeed = 500f;
     public const float maxTimeBetweenFuel = 10000f;
 
     public const float playerAnimationSpeed = 0.015f;
@@ -46,7 +45,7 @@ class CoreParameters
     public const int hudHealthHeight = 10;
     public const float hudHealthPosX = 10f;
     public const float hudHealthPosY = 30f;
-    public const float hudHealthScale = 2f;
+    public const float hudHealthScale = .2f;
 
     //Fuel
     public const int hudFuelWidth = 60;

@@ -20,8 +20,9 @@ public class Player : Vehicle
     float lastShot;
     bool isInSpecialState = true;
     float lastSpark;
+    Scene scene;
 
-    public Player(int iHealth,string filename,Scene scene) : base(iHealth,filename,scene)
+    public Player(int iHealth,string filename, Scene pScene) : base(iHealth,filename, pScene)
     {
         playerAnimations = new List<PlayerAnimation>();
         alpha = 0;
@@ -29,6 +30,7 @@ public class Player : Vehicle
         health = iHealth;
         CreateChildren();
         lastFuel = Time.time;
+        scene = pScene;
     }
 
     public override void Update()
@@ -46,7 +48,7 @@ public class Player : Vehicle
         }
         MovePlayer();
         Shoot();
-        UpdateFuel();
+        //UpdateFuel();
         base.Update();
     }
 
@@ -90,12 +92,21 @@ public class Player : Vehicle
     {
         if (Input.GetKey(Key.SPACE) && Time.time > lastShot + CoreParameters.playerFireSpeed)
         {
+            Bullet bullet = new Bullet(x, y, 0, this, CoreParameters.playerPath + "laser.png", scene);
+            scene.AddChild(bullet);
+            scene.playerBullets.Add(bullet);
+
             if (isInSpecialState)
             {
-                scene.AddChild(new Bullet(x, y + height / 2, 0, this));
-                scene.AddChild(new Bullet(x, y - height / 2, 0, this));
+                bullet = new Bullet(x, y + height / 2, 0, this, CoreParameters.playerPath + "laser.png", scene);
+                scene.AddChild(bullet);
+                scene.playerBullets.Add(bullet);
+
+                bullet = new Bullet(x, y - height / 2, 0, this, CoreParameters.playerPath + "laser.png", scene);
+                scene.AddChild(bullet);
+                scene.playerBullets.Add(bullet);
             }
-            scene.AddChild(new Bullet(x, y, 0, this));
+
             lastShot = Time.time;
         }
     }
@@ -108,8 +119,12 @@ public class Player : Vehicle
             if (health <= 0)
             {
                 if (this is Player)
+                {
                     scene.playerAlive = false;
-                Destroy();
+                } else
+                {
+                    Destroy();
+                }
             }
         }
     }

@@ -12,7 +12,7 @@ public class Particle : Sprite
     float speed;
     float moveLeftSpeed;
 
-    public Particle(string pFileName, float pScaleSteps, float pAngle, float pSpeed, float pLifeTime, Scene pActiveScene, float pColorR, float pColorG, float pColorB, float pAlpha, float pMoveLeftSpeed) : base(pFileName)
+    public Particle(string pFileName, float pScaleSteps, float pAngle, float pSpeed, float pLifeTime, Scene pActiveScene, float pColorR, float pColorG, float pColorB, float pAlpha, float pMoveLeftSpeed) : base(pFileName, false, false)
     {
         SetOrigin(width / 2, height / 2);
         activeScene = pActiveScene;

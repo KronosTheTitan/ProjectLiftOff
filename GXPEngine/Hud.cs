@@ -44,11 +44,11 @@ public class Hud : GameObject
         {
             if (playerHealth >= i)
             {
-                sprite = new Sprite("StaticHeart.png", false, false);
+                sprite = new Sprite("health.png", false, false);
             }
             else
             {
-                sprite = new Sprite("StaticHeartEmpty.png", false, false);
+                sprite = new Sprite("health.png", false, false);
             }
             sprite.SetOrigin(sprite.width / 2, sprite.height / 2);
             sprite.scale = CoreParameters.hudHealthScale;
@@ -85,7 +85,7 @@ public class Hud : GameObject
         fuelbarFill.SetOrigin(fuelbarFill.width / 2, fuelbarFill.height / 2);
         fuelbarFill.scale = CoreParameters.hudFuelbarScale;
         fuelbarFill.SetXY(fuelbarHudElement.width, fuelbarHudElement.height);
-        fuelbarFill.width = Mathf.Round(100 * (Time.time - activeScene.lastFuel) / CoreParameters.maxTimeBetweenFuel);
+        fuelbarFill.width = Mathf.Round(100 * (Time.time - activeScene.player.lastFuel) / CoreParameters.maxTimeBetweenFuel);
         fuelbarHudElement.AddChild(fuelbarFill);
         AddChild(fuelbarHudElement);
         fuelbarFillAmount = fuelbarFill.width;
