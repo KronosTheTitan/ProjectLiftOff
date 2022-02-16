@@ -55,8 +55,6 @@ class Boss : Vehicle
             scene.AddChild(new Bullet(x, y+width/2, 180, this));
             scene.AddChild(new Bullet(x, y-width/2, 180, this));
             lastShot = Time.time;
-
         }
     }
-
 }

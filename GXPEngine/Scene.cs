@@ -11,6 +11,7 @@ class Scene : GameObject
     public bool playerAlive = true;
     public Hud hud;
     public List<FuelTank> fuelTanks = new List<FuelTank>();
+
     public List<Bullet> playerBullets = new List<Bullet>();
     Sprite background;
     ScenePivot scenePivot;
@@ -118,6 +119,7 @@ class Scene : GameObject
         {
             lastScore = Time.time;
             score++;
+            hud.UpdateScore(1);
         }
     }
     void BossFightStart()

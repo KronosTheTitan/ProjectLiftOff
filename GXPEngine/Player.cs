@@ -20,7 +20,6 @@ class Player : Vehicle
     float lastShot;
     bool isInSpecialState = false;
     float lastSpark;
-    Scene scene;
 
     public Player(int iHealth,string filename, Scene pScene) : base(iHealth,filename, pScene)
     {
@@ -30,7 +29,6 @@ class Player : Vehicle
         health = iHealth;
         CreateChildren();
         lastFuel = Time.time;
-        scene = pScene;
     }
 
     public override void Update()
@@ -123,7 +121,7 @@ class Player : Vehicle
                     scene.playerAlive = false;
                 } else
                 {
-                    Destroy();
+                    LateDestroy();
                 }
             }
         }

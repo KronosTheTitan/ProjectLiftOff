@@ -59,7 +59,7 @@ class Vehicle : Sprite
         {
             if (!(this is Player))
             {
-                Destroy();
+                LateDestroy();
             } 
         }
     }

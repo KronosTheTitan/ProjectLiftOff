@@ -1,4 +1,6 @@
-﻿using GXPEngine;
+﻿using System;
+using System.Collections.Generic;
+using GXPEngine;
 class Bullet : Sprite
 {
     public Vehicle shooter;
@@ -13,8 +15,9 @@ class Bullet : Sprite
         SetScaleXY(0.5f, 0.5f);
         rotation = direction;
         scene = pScene;
+        Console.WriteLine("fired shot");
     }
-    void Update()
+    public void Update()
     {
         Move(CoreParameters.bulletSpeed * Time.deltaTime, 0);
 
