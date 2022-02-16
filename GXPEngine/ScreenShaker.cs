@@ -1,7 +1,7 @@
 ﻿using GXPEngine;
 using System;
 
-public class ScreenShaker : GameObject
+class ScreenShaker : GameObject
 {
     float shakeTimer;
     float shakeIntensity;
@@ -28,7 +28,8 @@ public class ScreenShaker : GameObject
             shakeTimer -= clampedDeltaTime;
             activeScene.x += (float)((r.NextDouble() * 2 * shakeIntensity) - shakeIntensity);
             activeScene.y += (float)((r.NextDouble() * 2 * shakeIntensity) - shakeIntensity);
-        } else
+        }
+        else
         {
             activeScene.x = oldX;
             activeScene.y = oldY;

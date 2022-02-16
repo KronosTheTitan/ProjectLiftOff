@@ -1,7 +1,7 @@
 ﻿using GXPEngine;
 using System;
 
-public class Emitter : GameObject
+class Emitter : GameObject
 {
     //Object references, passed by Constructor
     Scene activeScene;

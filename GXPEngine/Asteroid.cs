@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using GXPEngine;
 
-public class Asteroid : Sprite
+class Asteroid : Sprite
 {    
     public enum Type
     {
@@ -28,7 +28,7 @@ public class Asteroid : Sprite
         y = iY;
         type = pType;
         SetOrigin(width / 2, height / 2);
-        Console.WriteLine("new asteroid");
+        //Console.WriteLine("new asteroid");
     }
 
     void Update()
@@ -39,7 +39,7 @@ public class Asteroid : Sprite
 
             if (x < -10)
             {
-                Console.WriteLine("offscreen");
+                //Console.WriteLine("offscreen");
                 playDestroyAnimation = false;
                 Delete();
             }

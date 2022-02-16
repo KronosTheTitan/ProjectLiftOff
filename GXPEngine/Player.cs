@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using GXPEngine;
 
-public class Player : Vehicle
+class Player : Vehicle
 {
     public enum State
     {

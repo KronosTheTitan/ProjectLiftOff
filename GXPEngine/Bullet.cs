@@ -1,5 +1,5 @@
 ﻿using GXPEngine;
-public class Bullet : Sprite
+class Bullet : Sprite
 {
     public Vehicle shooter;
 

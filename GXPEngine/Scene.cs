@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using GXPEngine;
-public class Scene : GameObject
+class Scene : GameObject
 {
     public Player player;
     public int score = 0;
@@ -19,9 +19,6 @@ public class Scene : GameObject
     float lastBoss = 0;
     bool bossFight = false;
 
-    public Hud hud;
-
-    public List<FuelTank> fuelTanks = new List<FuelTank>();
     public Scene()
     {
         player = new Player(3, "triangle.png", this);
@@ -30,7 +27,6 @@ public class Scene : GameObject
         scenePivot = new ScenePivot();
         AddChild(scenePivot);
         timeLastAsteroid = Time.time;
-        score = 0;
 
         for (int i = 0; i < latestAsteroids.Length; i++)
         {
@@ -66,7 +62,7 @@ public class Scene : GameObject
     {
         if (Time.time > timeLastAsteroid + Mathf.Clamp(CoreParameters.maxTimeBetweenAsteroids - score, CoreParameters.minTimeBetweenAsteroids, CoreParameters.maxTimeBetweenAsteroids))
              return;
-        Console.WriteLine("attempt spawn");
+        //Console.WriteLine("attempt spawn");
         Asteroid asteroid = new Asteroid(this,Utils.Random(CoreParameters.minSpawnXAsteroids, CoreParameters.maxSpawnXAsteroids), player.y, Asteroid.Type.Bundle);
         foreach(Asteroid asteroid1 in latestAsteroids)
         {
@@ -112,7 +108,7 @@ public class Scene : GameObject
 
     void UpdateScore()
     {
-        if (!playerAlive && Time.time > lastScore + CoreParameters.scoreInterval)
+        if (playerAlive && Time.time > lastScore + CoreParameters.scoreInterval)
         {
             lastScore = Time.time;
             score++;

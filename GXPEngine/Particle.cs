@@ -1,7 +1,7 @@
 ﻿using GXPEngine;
 using System;
 
-public class Particle : Sprite
+class Particle : Sprite
 {
     //Object reference passed by constructor
     Scene activeScene;
@@ -46,9 +46,9 @@ public class Particle : Sprite
     void ShouldRender()
     {
         if (x + activeScene.x < -200
-             || x + activeScene.x > game.width / game.scaleX + 200
-             || y + activeScene.y < -200
-             || y + activeScene.y > game.height / game.scaleY + 200)
+                || x + activeScene.x > game.width / game.scaleX + 200
+                || y + activeScene.y < -200
+                || y + activeScene.y > game.height / game.scaleY + 200)
         {
             LateDestroy();
         }
