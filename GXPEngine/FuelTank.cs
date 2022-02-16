@@ -3,17 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using GXPEngine;
-public class FuelTank : Sprite
+class FuelTank : Pickup
 {
-    float speed;
     Scene scene;
-    public FuelTank(Scene iScene, string filename = "square.png") : base(filename)
+    public FuelTank(Scene iScene, string filename = "square.png") : base(filename,iScene)
     {
-        //Console.WriteLine("attempt fuel spawn" + Time.time);
-        speed = .5f;
+        Console.WriteLine("attempt fuel spawn" + Time.time);
         scene = iScene;
         scene.AddChild(this);
-        //scene.fuelTanks.Add(this);
+        scene.fuelTanks.Add(this);
         SetOrigin(width / 2, height / 2);
         x = 1000;
         y = Utils.Random(0 + width / 2, 600 - width / 2);
@@ -23,20 +21,15 @@ public class FuelTank : Sprite
             Delete();
             return;
         }
-        //Console.WriteLine("spawn succes");
+        Console.WriteLine("spawn succes");
     }
-    void Update()
+    public override void OnPickUp()
     {
-        if (scene.playerAlive)
-        {
-            x -= speed * Time.deltaTime;
-            if (x < -10)
-                Delete();
-        }
+        scene.player.lastFuel = Time.time;
     }
-    public void Delete()
+    public override void Delete()
     {
-        //scene.fuelTanks.Remove(this);
+        scene.fuelTanks.Remove(this);
         scene.RemoveChild(this);
         //Console.WriteLine("deleted fuel tank" + scene.fuelTanks.Count);
         LateDestroy();

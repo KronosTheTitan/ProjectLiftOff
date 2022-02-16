@@ -18,10 +18,6 @@ public class MyGame : Game
 
         activeHud = new Hud(activeScene, pPlayerName);
         activeScene.AddChild(activeHud);
-
-        Pickup pickup = new Pickup("Star.png", 13, Pickup.Type.Health, activeHud, activeScene);
-        pickup.SetXY(game.width, game.height / 2);
-        activeScene.AddChild(pickup);
     }
 
     public void LoadScoreBoard()

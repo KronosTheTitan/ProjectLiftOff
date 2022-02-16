@@ -19,6 +19,9 @@ public class Scene : GameObject
     float lastBoss = 0;
     bool bossFight = false;
 
+    public Hud hud;
+
+    public List<FuelTank> fuelTanks = new List<FuelTank>();
     public Scene()
     {
         player = new Player(3, "triangle.png", this);
@@ -26,6 +29,8 @@ public class Scene : GameObject
         AddChild(player);
         scenePivot = new ScenePivot();
         AddChild(scenePivot);
+        timeLastAsteroid = Time.time;
+        score = 0;
 
         for (int i = 0; i < latestAsteroids.Length; i++)
         {
@@ -49,7 +54,7 @@ public class Scene : GameObject
             UpdateScore();
             if (fuelTanks.Count < 3)
             {
-                //FuelTank fuel = new FuelTank(this);
+                FuelTank fuel = new FuelTank(this);
             }
         }
         else
@@ -60,11 +65,10 @@ public class Scene : GameObject
     void SpawnAsteroid()
     {
         if (Time.time > timeLastAsteroid + Mathf.Clamp(CoreParameters.maxTimeBetweenAsteroids - score, CoreParameters.minTimeBetweenAsteroids, CoreParameters.maxTimeBetweenAsteroids))
-            return;
-        //Console.WriteLine("attempt spawn");
-        bool isBundle = true;
-        Asteroid asteroid = new Asteroid(this, Utils.Random(CoreParameters.minSpawnXAsteroids, CoreParameters.maxSpawnXAsteroids), player.y, Asteroid.Type.Bundle);
-        foreach (Asteroid asteroid1 in latestAsteroids)
+             return;
+        Console.WriteLine("attempt spawn");
+        Asteroid asteroid = new Asteroid(this,Utils.Random(CoreParameters.minSpawnXAsteroids, CoreParameters.maxSpawnXAsteroids), player.y, Asteroid.Type.Bundle);
+        foreach(Asteroid asteroid1 in latestAsteroids)
         {
             if (asteroid.DistanceTo(asteroid1) < Mathf.Clamp(CoreParameters.maxDistanceToOther - score, CoreParameters.minDistanceToOther, CoreParameters.maxDistanceToOther))
             {
