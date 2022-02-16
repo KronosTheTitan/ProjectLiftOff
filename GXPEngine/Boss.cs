@@ -34,6 +34,10 @@ class Boss : Vehicle
         health--;
         if (health <= 0)
         {
+            ExtraHealth Ehealth = new ExtraHealth("star.png", scene);
+            scene.AddChild(Ehealth);
+            Ehealth.x = x;
+            Ehealth.y = y;
             scene.BossFightEnd();
             Destroy();
         }

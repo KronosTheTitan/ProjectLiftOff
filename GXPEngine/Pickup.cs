@@ -1,62 +1,40 @@
 ﻿using GXPEngine;
 
-class Pickup : AnimationSprite
+class Pickup : Sprite
 {
-    public enum Type
-    {
-        Health,
-        Fuel
-    }
-
-    Type type;
-    Hud hud;
     Scene activeScene;
 
-    float animationSpeed;
-    float moveSpeed;
+    float moveSpeed = 0f;
 
-    public Pickup(string pFileName, int pCol, Type pType, Hud pHud, Scene pActiceScene) : base(pFileName, pCol, 1)
+    public Pickup(string pFileName, Scene iScene) : base(pFileName)
     {
-        SetOrigin(width / 2, height / 2);
-        SetCycle(0, pCol);
-        scale = CoreParameters.pickupScale;
-        collider.isTrigger = true;
-
-        hud = pHud;
-        type = pType;
-        activeScene = pActiceScene;
-        animationSpeed = CoreParameters.pickupAnimationSpeed;
-        moveSpeed = CoreParameters.pickupMoveSpeed;
+        activeScene = iScene;
+        moveSpeed = 0.5f;
     }
 
-    void Update()
+    public void Update()
     {
         int clampedDeltaTime = Mathf.Min(Time.deltaTime, 40);
 
         if (HitTest(activeScene.player)) //If hits player, do stuff based on pickiptype
         {
-            switch (type)
-            {
-                case Type.Health:
-                    hud.UpdateHealth(CoreParameters.pickupHealBoost); //Heal 1
-                    break;
-                case Type.Fuel:
-                    hud.UpdateFuelbar(CoreParameters.pickupFuelBoost); //Add 30 to fuel
-                    activeScene.player.lastFuel = Time.time;
-                    activeScene.fuelTanks.Remove(this);
-                    activeScene.RemoveChild(this);
-                    break;
-            }
-            LateDestroy();
+            OnPickUp();
+            Delete();
         }
-
-        Move(-moveSpeed * clampedDeltaTime, 0); //Move pickup
+        if(activeScene.playerAlive)
+            x -= moveSpeed * Time.deltaTime; //Move pickup
 
         if (x + activeScene.x < 0)
         {
-            LateDestroy(); //Pickup is offscreen
+            Delete();
         }
-        
-        Animate(animationSpeed * clampedDeltaTime);
+    }
+    public virtual void OnPickUp()
+    {
+
+    }
+    public virtual void Delete()
+    {
+
     }
 }
