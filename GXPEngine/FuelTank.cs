@@ -6,7 +6,7 @@ using GXPEngine;
 class FuelTank : Pickup
 {
     Scene scene;
-    public FuelTank(Scene iScene, string filename = "square.png") : base(filename,iScene)
+    public FuelTank(Scene iScene, string filename = "fuel.png") : base(filename,iScene)
     {
         //Console.WriteLine("attempt fuel spawn" + Time.time);
         scene = iScene;

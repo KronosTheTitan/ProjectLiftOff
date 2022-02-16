@@ -34,7 +34,7 @@ class Boss : Vehicle
         health--;
         if (health <= 0)
         {
-            ExtraHealth Ehealth = new ExtraHealth("star.png", scene);
+            ExtraHealth Ehealth = new ExtraHealth("health.png", scene);
             scene.AddChild(Ehealth);
             Ehealth.x = x;
             Ehealth.y = y;

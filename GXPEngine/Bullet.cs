@@ -18,7 +18,7 @@ class Bullet : Sprite
     {
         Move(CoreParameters.bulletSpeed * Time.deltaTime, 0);
 
-        if (x < -10 || x > game.width)
+        if (x < -10 || x > game.width / game.scaleX)
         {
             if (scene != null && scene.playerBullets.Contains(this))
             {

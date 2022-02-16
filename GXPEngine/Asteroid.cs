@@ -29,7 +29,7 @@ class Asteroid : Sprite
         type = pType;
         SetOrigin(width / 2, height / 2);
         //Console.WriteLine("new asteroid");
-    }
+    }   
 
     void Update()
     {
@@ -47,7 +47,7 @@ class Asteroid : Sprite
 
         if (type == Type.Small)
         {
-            Move(0.05f * Time.deltaTime, 0);
+            Move(0.2f * Time.deltaTime, 0);
         }
 
         CollisionBullet();
@@ -75,23 +75,27 @@ class Asteroid : Sprite
 
     void CollisionBullet()
     {
-        List<Bullet> hitBullets = new List<Bullet>();
+        Bullet hitBullet = null;
 
         foreach (Bullet bullet in scene.playerBullets)
         {
             if (HitTest(bullet))
             {
-                hitBullets.Add(bullet);
-                Delete();
+                hitBullet = bullet;
+                break;
             }
         }
 
-        foreach (Bullet bullet in hitBullets)
+        if (hitBullet != null) 
         {
-            scene.playerBullets.Remove(bullet);
-            bullet.Destroy();
+            scene.playerBullets.Remove(hitBullet);
+            hitBullet.Destroy();
+            if (type == Type.Bundle)
+            {
+                SpawnSmallAsteroids();
+            }
+            Delete();
         }
-        hitBullets.Clear();
     }
 
     protected override void OnDestroy()
@@ -110,9 +114,9 @@ class Asteroid : Sprite
 
     void Delete()
     {
-        if (type == Type.Bundle)
+        if (type == Type.Small)
         {
-            SpawnSmallAsteroids();
+            Console.WriteLine("Small delete");
         }
         scene.RemoveChild(this);
         Destroy();

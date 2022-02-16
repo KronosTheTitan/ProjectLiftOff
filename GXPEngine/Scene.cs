@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using GXPEngine;
+
 class Scene : GameObject
 {
     public Player player;
@@ -11,6 +12,7 @@ class Scene : GameObject
     public Hud hud;
     public List<FuelTank> fuelTanks = new List<FuelTank>();
     public List<Bullet> playerBullets = new List<Bullet>();
+    Sprite background;
     ScenePivot scenePivot;
     Asteroid[] latestAsteroids = new Asteroid[3];
     DestroyAnimation playerDestroyAnimation;
@@ -21,7 +23,10 @@ class Scene : GameObject
 
     public Scene()
     {
-        player = new Player(3, "triangle.png", this);
+        background = new Sprite("background.jpg", false);
+        background.scale = 2.2f;
+        AddChild(background);
+        player = new Player(3, CoreParameters.playerPath + "base.png", this);
         player.SetXY(100, 600 / 2);
         AddChild(player);
         scenePivot = new ScenePivot();
@@ -37,6 +42,7 @@ class Scene : GameObject
         AddChild(latestAsteroids[1]);
         AddChild(latestAsteroids[2]);
     }
+
     void Update()
     {
         CheckForPlayerDeath();
@@ -61,10 +67,10 @@ class Scene : GameObject
     void SpawnAsteroid()
     {
         if (Time.time > timeLastAsteroid + Mathf.Clamp(CoreParameters.maxTimeBetweenAsteroids - score, CoreParameters.minTimeBetweenAsteroids, CoreParameters.maxTimeBetweenAsteroids))
-             return;
+            return;
         //Console.WriteLine("attempt spawn");
-        Asteroid asteroid = new Asteroid(this,Utils.Random(CoreParameters.minSpawnXAsteroids, CoreParameters.maxSpawnXAsteroids), player.y, Asteroid.Type.Bundle);
-        foreach(Asteroid asteroid1 in latestAsteroids)
+        Asteroid asteroid = new Asteroid(this, Utils.Random(CoreParameters.minSpawnXAsteroids, CoreParameters.maxSpawnXAsteroids), player.y, Asteroid.Type.Bundle);
+        foreach (Asteroid asteroid1 in latestAsteroids)
         {
             if (asteroid.DistanceTo(asteroid1) < Mathf.Clamp(CoreParameters.maxDistanceToOther - score, CoreParameters.minDistanceToOther, CoreParameters.maxDistanceToOther))
             {

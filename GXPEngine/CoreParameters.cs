@@ -12,7 +12,7 @@ class CoreParameters
     public const float minTimeBetweenAsteroids = 1000;
 
     public const float minSpeedAsteroids = .5f;
-    public const float maxSpeedAsteroids = 15;
+    public const float maxSpeedAsteroids = 5;
     public const float minSpeedFromScore = 0;
     public const float maxSpeedFromScore = 5;
 

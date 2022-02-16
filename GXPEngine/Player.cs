@@ -18,7 +18,7 @@ class Player : Vehicle
     State currentState; //Currently active state
     float speed = .75f;
     float lastShot;
-    bool isInSpecialState = true;
+    bool isInSpecialState = false;
     float lastSpark;
     Scene scene;
 
