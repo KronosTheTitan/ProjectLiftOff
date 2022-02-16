@@ -28,7 +28,7 @@ class Asteroid : Sprite
         y = iY;
         type = pType;
         SetOrigin(width / 2, height / 2);
-        Console.WriteLine("new asteroid");
+        //Console.WriteLine("new asteroid");
     }
 
     void Update()
@@ -39,7 +39,7 @@ class Asteroid : Sprite
 
             if (x < -10)
             {
-                Console.WriteLine("offscreen");
+                //Console.WriteLine("offscreen");
                 playDestroyAnimation = false;
                 Delete();
             }
