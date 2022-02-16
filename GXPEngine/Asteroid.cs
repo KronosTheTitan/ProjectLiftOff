@@ -18,6 +18,7 @@ class Asteroid : Sprite
     public float speed;
     public bool playDestroyAnimation = true;
 
+    Sound explosion;
     Scene scene;
 
     public Asteroid(Scene iScene, float iX, float iY, Type pType) : base(pType == Type.Bundle ? "bundle.png" : "toxic_waste.png")
@@ -28,8 +29,10 @@ class Asteroid : Sprite
         y = iY;
         type = pType;
         SetOrigin(width / 2, height / 2);
+        explosion = new Sound(CoreParameters.soundPath + "explosion.wav");
+
         //Console.WriteLine("new asteroid");
-    }   
+    }
 
     void Update()
     {
@@ -94,6 +97,7 @@ class Asteroid : Sprite
             {
                 SpawnSmallAsteroids();
             }
+            explosion.Play();
             Delete();
         }
     }
@@ -106,7 +110,7 @@ class Asteroid : Sprite
             emitter.SetScale(0.02f, 0.025f, 0.001f).SetSpawnPosition(x - 5, x + 5, y - 5, y + 5).SetVelocity(0, 360, 0.02f, 0.03f).SetColors(0.12f, 0.5f, 0.12f, 0.8f);
             emitter.Emit(5);
 
-            DestroyAnimation asteroidDestroyAnimation = new DestroyAnimation("Explosion.png", 5, 1, speed, 3);
+            DestroyAnimation asteroidDestroyAnimation = new DestroyAnimation("Explosion.png", 5, 1, scene, speed, 3);
             scene.AddChildAt(asteroidDestroyAnimation, scene.GetChildCount());
             asteroidDestroyAnimation.SetXY(x, y);
         }

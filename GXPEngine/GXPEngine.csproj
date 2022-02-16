@@ -41,11 +41,9 @@
     <Compile Include="Bullet.cs" />
     <Compile Include="CoreParameters.cs" />
     <Compile Include="ScreenShaker.cs" />
-    <Compile Include="FuelTank.cs" />
     <Compile Include="GXPEngine\AddOns\Gizmos.cs" />
     <Compile Include="GXPEngine\AddOns\SpriteBatch.cs" />
     <Compile Include="GXPEngine\AddOns\TiledLoader.cs" />
-    <Compile Include="GXPEngine\ExtraHealth.cs" />
     <Compile Include="MyGame.cs" />
     <Compile Include="GXPEngine\Core\Canvas.cs" />
     <Compile Include="GXPEngine\Game.cs" />

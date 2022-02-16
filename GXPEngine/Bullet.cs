@@ -15,7 +15,7 @@ class Bullet : Sprite
         SetScaleXY(0.5f, 0.5f);
         rotation = direction;
         scene = pScene;
-        Console.WriteLine("fired shot");
+        //Console.WriteLine("fired shot");
     }
     public void Update()
     {

@@ -16,5 +16,4 @@ class BossAnimation : AnimationSprite
         int clampedDeltaTime = Mathf.Min(Time.deltaTime, 40);
         Animate(CoreParameters.playerAnimationSpeed * clampedDeltaTime);
     }
-
 }

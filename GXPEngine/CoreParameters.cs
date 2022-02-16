@@ -7,6 +7,7 @@ using GXPEngine;
 class CoreParameters
 {
     public const string playerPath = "player/";
+    public const string soundPath = "sounds/";
 
     public const float maxTimeBetweenAsteroids = 10000;
     public const float minTimeBetweenAsteroids = 1000;
@@ -35,6 +36,8 @@ class CoreParameters
 
     public const float playerAnimationSpeed = 0.015f;
     public const float playerSparkInterval = 100f;
+    public const float hudFuelbarLooseOverTime = 0.04f;
+
 
     //Font
     public const string fontPath = "font.ttf";
@@ -48,11 +51,10 @@ class CoreParameters
     public const float hudHealthScale = .2f;
 
     //Fuel
-    public const int hudFuelWidth = 60;
+    public const int hudFuelWidth = 200;
     public const int hudFuelHeight = 10;
     public const float hudFuelPosX = 15f;
     public const float hudFuelPosY = 80f;
-    public const float hudFuelbarLooseOverTime = 0.01f;
     public const float hudFuelbarScale = 0.5f;
 
     //Score
@@ -66,8 +68,7 @@ class CoreParameters
     public const float pickupScale = 2f;
     public const float pickupMoveSpeed = 0.5f;
     public const int pickupHealBoost = 1;
-    public const int pickupFuelBoost = 50;
-    public const float pickupAnimationSpeed = 0.015f;
+    public const int pickupFuelBoost = 15;
 
     //Scoreboard
     public const int playerNameMaxLength = 15;
