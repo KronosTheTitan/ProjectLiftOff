@@ -29,6 +29,9 @@ class Scene : GameObject
         AddChild(scenePivot);
         timeLastAsteroid = Time.time;
 
+        lastBoss = Time.time;
+        score = 0;
+
         for (int i = 0; i < latestAsteroids.Length; i++)
         {
             latestAsteroids[i] = new Asteroid(this, 1000, Utils.Random(0, 600), Asteroid.Type.Normal);
