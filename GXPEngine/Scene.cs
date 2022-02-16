@@ -17,7 +17,7 @@ class Scene : GameObject
 
     public Hud hud;
 
-    public List<Pickup> fuelTanks = new List<Pickup>();
+    public List<FuelTank> fuelTanks = new List<FuelTank>();
     public Scene()
     {
         player = new Player(3, "triangle.png",this);
@@ -25,8 +25,10 @@ class Scene : GameObject
         AddChild(player);
         scenePivot = new ScenePivot();
         AddChild(scenePivot);
+        timeLastAsteroid = Time.time;
+        score = 0;
 
-        for(int i =0; i < latestAsteroids.Length; i++)
+        for (int i =0; i < latestAsteroids.Length; i++)
         {
             latestAsteroids[i] = new Asteroid(this, 1000, Utils.Random(0, 600));
         }
@@ -37,6 +39,8 @@ class Scene : GameObject
     }
     void Update()
     {
+        if (!playerAlive)
+            Destroy();
         if (!bossFight)
         {
             SpawnAsteroid();
@@ -47,8 +51,7 @@ class Scene : GameObject
             UpdateScore();
             if(fuelTanks.Count < 3)
             {
-                Pickup fuel = new Pickup("square.png", 0, Pickup.Type.Fuel, hud, this);
-                fuelTanks.Add(fuel);
+                FuelTank fuel = new FuelTank(this);
             }
         }
         else
@@ -60,7 +63,7 @@ class Scene : GameObject
     {
         if (Time.time > timeLastAsteroid + Mathf.Clamp(CoreParameters.maxTimeBetweenAsteroids - score, CoreParameters.minTimeBetweenAsteroids, CoreParameters.maxTimeBetweenAsteroids))
              return;
-        ///Console.WriteLine("attempt spawn");
+        Console.WriteLine("attempt spawn");
         Asteroid asteroid = new Asteroid(this,Utils.Random(CoreParameters.minSpawnXAsteroids, CoreParameters.maxSpawnXAsteroids), player.y);
         foreach(Asteroid asteroid1 in latestAsteroids)
         {
