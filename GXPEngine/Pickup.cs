@@ -21,7 +21,6 @@ class Pickup : Sprite
         pickupSound = new Sound(CoreParameters.soundPath + "pickup.wav");
         moveSpeed = 0.5f;
         type = pType;
-        System.Console.WriteLine(x);
     }
 
     public void Update()
@@ -34,6 +33,7 @@ class Pickup : Sprite
             switch (type)
             {
                 case Type.Fuel:
+                    System.Console.WriteLine("fuel collexted");
                     activeScene.fuelTanks.Remove(this);
                     activeScene.hud.UpdateFuelbar(CoreParameters.pickupFuelBoost);
                     break;

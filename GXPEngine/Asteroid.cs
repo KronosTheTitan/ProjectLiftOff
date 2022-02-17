@@ -118,10 +118,6 @@ class Asteroid : Sprite
 
     void Delete()
     {
-        if (type == Type.Small)
-        {
-            Console.WriteLine("Small delete");
-        }
         scene.RemoveChild(this);
         Destroy();
     }

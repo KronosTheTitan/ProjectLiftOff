@@ -7,18 +7,15 @@ class Hud : GameObject
     public string playerName = "";
 
     //Hud elemets
-    EasyDraw fuelbarHudElement;
-    EasyDraw powerbarHudElement;
     EasyDraw healthHudElement;
     EasyDraw scoreHudElement;
-
-    Scene activeScene;
-
     Sprite fuelbarFill;
-    float fuelbarFillAmount;
-
     Sprite powerbarFill;
+
+    float fuelbarFillAmount;
     float powerbarAmount;
+        
+    Scene activeScene;
 
     public Hud(Scene pActiveScene, string pName) : base()
     {
@@ -88,31 +85,25 @@ class Hud : GameObject
 
     void CreateFuelElement()
     {
-        fuelbarHudElement = new EasyDraw(CoreParameters.hudFuelWidth, CoreParameters.hudFuelHeight, false);
-        fuelbarHudElement.SetOrigin(fuelbarHudElement.width / 2, fuelbarHudElement.height / 2);
-        fuelbarHudElement.SetXY(CoreParameters.hudFuelPosX, CoreParameters.hudFuelPosY);
         fuelbarFill = new Sprite("fuelbar.png", false, false);
         fuelbarFill.SetOrigin(fuelbarFill.width / 2, fuelbarFill.height / 2);
+        fuelbarFill.SetXY(CoreParameters.hudFuelPosX, CoreParameters.hudFuelPosY);
         fuelbarFill.scale = CoreParameters.hudFuelbarScale;
-        fuelbarFill.SetXY(fuelbarHudElement.width, fuelbarHudElement.height);
         fuelbarFill.width = CoreParameters.hudFuelWidth;
-        fuelbarHudElement.AddChild(fuelbarFill);
-        AddChild(fuelbarHudElement);
+        fuelbarFill.height = CoreParameters.hudFuelHeight;
+        AddChild(fuelbarFill);
         fuelbarFillAmount = fuelbarFill.width;
     }
 
     void CreatePowerElement()
     {
-        powerbarHudElement = new EasyDraw(CoreParameters.hudFuelWidth, CoreParameters.hudFuelHeight, false);
-        powerbarHudElement.SetOrigin(powerbarHudElement.width / 2, powerbarHudElement.height / 2);
-        powerbarHudElement.SetXY(CoreParameters.hudFuelPosX, CoreParameters.hudFuelPosY + 20);
         powerbarFill = new Sprite("powerbar.png", false, false);
         powerbarFill.SetOrigin(powerbarFill.width / 2, powerbarFill.height / 2);
+        powerbarFill.SetXY(CoreParameters.hudFuelPosX, CoreParameters.hudFuelPosY + 20);
         powerbarFill.scale = CoreParameters.hudFuelbarScale;
-        powerbarFill.SetXY(powerbarHudElement.width, powerbarHudElement.height);
         powerbarFill.width = CoreParameters.hudFuelWidth;
-        powerbarHudElement.AddChild(powerbarFill);
-        AddChild(powerbarHudElement);
+        powerbarFill.height = CoreParameters.hudFuelHeight;
+        AddChild(powerbarFill);
         powerbarAmount = powerbarFill.width;
     }
 
@@ -136,34 +127,6 @@ class Hud : GameObject
         scoreCount = activeScene.score;
         scoreHudElement.Text(scoreCount.ToString(), true);
 
-        //Console.WriteLine("****************START******************");
-        //Fuel update
-        if (fuelbarFill.width > 0 && !activeScene.bossFight)
-        {
-            fuelbarFillAmount -= CoreParameters.hudFuelbarLooseOverTime * clampedDeltaTime;
-            //Console.WriteLine("fuelbarFillAmount "+ fuelbarFillAmount);
-            //Console.WriteLine("fuelbarFill.width - 2 " + (fuelbarFill.width - 2).ToString());
-            if (fuelbarFillAmount <= fuelbarFill.width - 2)
-            {
-                //Console.WriteLine("go Down");
-                UpdateFuelbar(-1);
-            }
-
-            //Console.WriteLine("fuelbarFill.width "+ fuelbarFill.width);
-            //Console.WriteLine("fuelbarFill.x " + fuelbarFill.x);
-
-        }
-        else if (fuelbarFill.width < 0 || !activeScene.playerAlive)
-        {
-            fuelbarFill.width = 0;
-        }
-
-        if (fuelbarFill.width == 0 && activeScene.playerAlive)
-        {
-            activeScene.player.health = 0;
-        }
-
-        
         //Power update
         if (!activeScene.playerAlive)
         {
@@ -171,20 +134,36 @@ class Hud : GameObject
         }
         else
         {
+            Console.WriteLine("****************START******************");
+            //Fuel update
+            if (fuelbarFill.width > 0 && !activeScene.bossFight)
+            {
+                fuelbarFillAmount -= CoreParameters.hudFuelbarLooseOverTime * clampedDeltaTime;
+                Console.WriteLine("fuelbarFillAmount " + fuelbarFillAmount);
+                Console.WriteLine("fuelbarFill.width - 2 " + (fuelbarFill.width - 2).ToString());
+                if (fuelbarFillAmount <= fuelbarFill.width - 2)
+                {
+                    Console.WriteLine("go Down");
+                    UpdateFuelbar(-1);
+                }
+
+                Console.WriteLine("fuelbarFill.width " + fuelbarFill.width);
+                Console.WriteLine("fuelbarFill.x " + fuelbarFill.x);
+
+            }
+            else if (fuelbarFill.width <= 0)
+            {
+                activeScene.player.health = 0;
+                fuelbarFill.width = 0;
+            }
+
             if (powerbarFill.width < CoreParameters.hudFuelWidth && !activeScene.player.isInSpecialState)
             {
                 powerbarAmount += CoreParameters.hudFuelbarLooseOverTime * clampedDeltaTime;
-                //Console.WriteLine("fuelbarFillAmount "+ fuelbarFillAmount);
-                //Console.WriteLine("fuelbarFill.width - 2 " + (fuelbarFill.width - 2).ToString());
                 if (powerbarAmount >= powerbarFill.width + 1)
                 {
-                    //Console.WriteLine("go Down");
                     UpdatePowerbar(1);
                 }
-
-                //Console.WriteLine("fuelbarFill.width "+ fuelbarFill.width);
-                //Console.WriteLine("fuelbarFill.x " + fuelbarFill.x);
-
             }
             else if (powerbarFill.width >= CoreParameters.hudFuelWidth && !activeScene.player.isInSpecialState)
             {
@@ -195,23 +174,16 @@ class Hud : GameObject
             if (powerbarFill.width > 0 && activeScene.player.isInSpecialState)
             {
                 powerbarAmount -= CoreParameters.hudFuelbarLooseOverTime * clampedDeltaTime;
-                //Console.WriteLine("fuelbarFillAmount "+ fuelbarFillAmount);
-                //Console.WriteLine("fuelbarFill.width - 2 " + (fuelbarFill.width - 2).ToString());
-                if (powerbarAmount <= powerbarFill.width - 1)
+                if (powerbarAmount <= powerbarFill.width - 0.5f)
                 {
-                    //Console.WriteLine("go Down");
                     UpdatePowerbar(-1);
                 }
-
-                //Console.WriteLine("fuelbarFill.width "+ fuelbarFill.width);
-                //Console.WriteLine("fuelbarFill.x " + fuelbarFill.x);
-
-            } else if (powerbarFill.width <= 0 && activeScene.player.isInSpecialState)
+            }
+            else if (powerbarFill.width <= 0 && activeScene.player.isInSpecialState)
             {
                 powerbarFill.width = 0;
                 activeScene.player.isInSpecialState = false;
             }
         }
-        
     }
 }
