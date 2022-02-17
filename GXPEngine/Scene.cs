@@ -69,6 +69,8 @@ class Scene : GameObject
                 AddChild(fuel);
             }
         }
+        if (Input.GetKeyUp(Key.W))
+            LateDestroy();
     }
     void SpawnAsteroid()
     {

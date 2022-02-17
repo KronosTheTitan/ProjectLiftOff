@@ -243,6 +243,9 @@ void CheckForMultipleRecord(int pRecordNumber)
     {
         int clampedDeltaTime = Mathf.Min(Time.deltaTime, 40);
 
+        if (Input.GetKeyUp(Key.W) && !typingNewName)
+            LateDestroy();
+
         if (Input.GetMouseButtonUp(0))
         {
             //Check for Click on Start Game btn
