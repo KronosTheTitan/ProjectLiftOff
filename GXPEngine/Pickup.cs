@@ -39,7 +39,7 @@ class Pickup : Sprite
                     break;
                 case Type.Health:
                     activeScene.player.health++;
-                    activeScene.hud.UpdateHealth(1);
+                    activeScene.hud.UpdateHealth();
                     break;
             }
             Destroy();

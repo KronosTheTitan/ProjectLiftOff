@@ -6,7 +6,7 @@ public class MyGame : Game
     ScoreBoard activeScoreBoard;
     Hud activeHud;
 
-    public MyGame() : base(800, 600, false, true)
+    public MyGame() : base(960, 540, false, true, 1920, 1080, true)
     {
         LoadScoreBoard();
     }

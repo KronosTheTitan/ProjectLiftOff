@@ -25,18 +25,18 @@ class CoreParameters
     public const float minDistanceToOther = 200;
     public const float maxDistanceToOther = 500;
 
-    public const float bossScoreInterval = 30000;
+    public const float bossScoreInterval = 150;
     public const float bossMainGunInterval = 500;
     public const float bossSideGunInterval = 400;
 
     public const float bulletSpeed = 0.5f;
 
-    public const float playerFireSpeed = 500f;
+    public const float playerFireSpeed = 750f;
     public const float maxTimeBetweenFuel = 10000f;
 
     public const float playerAnimationSpeed = 0.015f;
     public const float playerSparkInterval = 100f;
-    public const float hudFuelbarLooseOverTime = 0.04f;
+    public const float hudFuelbarLooseOverTime = 0.02f;
 
 
     //Font
@@ -53,14 +53,14 @@ class CoreParameters
     //Fuel
     public const int hudFuelWidth = 200;
     public const int hudFuelHeight = 10;
-    public const float hudFuelPosX = 15f;
+    public const float hudFuelPosX = -80f;
     public const float hudFuelPosY = 80f;
     public const float hudFuelbarScale = 0.5f;
 
     //Score
     public const int hudScoreWidth = 100;
-    public const int hudScoreHeight = 20;
-    public const float hudScorePosX = 650f;
+    public const int hudScoreHeight = 40;
+    public const float hudScorePosX = 850f;
     public const float hudScorePosY = 20f;
     public const float hudScoreFontSize = 20f;
 
@@ -74,18 +74,18 @@ class CoreParameters
     public const int playerNameMaxLength = 15;
 
     //Title
-    public const int scoreBoardTitleWidth = 400;
+    public const int scoreBoardTitleWidth = 350;
     public const int scoreBoardTitleHeight = 50;
-    public const float scoreBoardTitlePosX = 400f;
+    public const float scoreBoardTitlePosX = 480;
     public const float scoreBoardTitlePosY = 50f;
     public const float scoreBoardTitleFontSize = 30f;
 
     //Table
-    public const int scoreTableCellWidth = 300;
+    public const int scoreTableCellWidth = 400;
     public const int scoreTableCellHeight = 50;
     public const int scoreTableNumOfRows = 6;
     public const float scoreTablePosY = 100f;
-    public const float scoreTablePosX = 300f;
+    public const float scoreTablePosX = 410f;
     public const float scoreTableFontSize = 20f;
 
     //SavefileName
@@ -94,7 +94,7 @@ class CoreParameters
     //StartBtn
     public const int scoreBoardStartBtnWidth = 200;
     public const int scoreBoardStartBtnHeight = 100;
-    public const float scoreBoardStartBtnPosX = 500f;
+    public const float scoreBoardStartBtnPosX = 800f;
     public const float scoreBoardStartBtnPosY = 500f;
     public const float scoreBoardStartBtnFontSize = 15f;
 

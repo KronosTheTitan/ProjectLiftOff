@@ -12,17 +12,18 @@ class Boss : Vehicle
 
     public Boss(Scene iScene, string fileName = "bossBase.png") : base(10, fileName, iScene)
     {
+        SetOrigin(width / 2, height / 2);
         alpha = 0;
-        scale = 4f;
         y = (game.height / game.scaleY) / 2;
-        x = game.width / game.scaleX;
+        x = game.width / game.scaleX + width;
+        scale = 0.5f;
         bossAnimation = new BossAnimation();
         AddChild(bossAnimation);
     }
 
     public override void Update()
     {
-        if(x > 700)
+        if (x > game.width / game.scaleX * 0.9f)
         {
             x -= speed * Time.deltaTime;
             //Console.WriteLine(x);
@@ -40,6 +41,7 @@ class Boss : Vehicle
         if (health <= 0)
         {
             Pickup health = new Pickup(scene, Pickup.Type.Health);
+            health.scale = 0.25f;
             scene.AddChild(health);
             health.x = x;
             health.y = y;
@@ -50,16 +52,16 @@ class Boss : Vehicle
 
     public override void Shoot()
     {
-        if(Time.time > lastShotMain + CoreParameters.bossMainGunInterval)
+        if (Time.time > lastShotMain + CoreParameters.bossMainGunInterval)
         {
             float dirToPlayer = Mathf.Atan2(scene.player.y - y, scene.player.x - x) * 180 / (Mathf.PI);
             scene.AddChild(new Bullet(x, y, dirToPlayer, this));
             lastShotMain = Time.time;
         }
-        if(Time.time > lastShot + CoreParameters.bossSideGunInterval)
+        if (Time.time > lastShot + CoreParameters.bossSideGunInterval)
         {
-            scene.AddChild(new Asteroid(scene, x, y+width/2, Asteroid.Type.Normal));
-            scene.AddChild(new Asteroid(scene, x, y-width/2, Asteroid.Type.Normal));
+            scene.AddChild(new Asteroid(scene, x, y + width / 2, Asteroid.Type.Normal));
+            scene.AddChild(new Asteroid(scene, x, y - width / 2, Asteroid.Type.Normal));
             lastShot = Time.time;
         }
     }

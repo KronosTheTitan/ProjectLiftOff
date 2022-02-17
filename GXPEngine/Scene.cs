@@ -20,12 +20,20 @@ class Scene : GameObject
     float lastBoss = 0;
 
     SoundChannel song;
-
+        
     public Scene()
     {
+        Sprite background = new Sprite("background.jpg", false);
+        background.scale = .5f;
+        AddChild(background);
+
+        background = new Sprite("background1.png", false);
+        background.scale = .5f;
+        AddChild(background);
+
         song = new Sound(CoreParameters.soundPath + "song.wav", true).Play();
         player = new Player(3, CoreParameters.playerPath + "base.png", this);
-        player.SetXY(100, 600 / 2);
+        player.SetXY(100, (game.height / game.scaleY) / 2);
         AddChild(player);
         scenePivot = new ScenePivot();
         AddChild(scenePivot);
@@ -47,7 +55,7 @@ class Scene : GameObject
         if (!bossFight)
         {
             SpawnAsteroid();
-            if (Time.time > lastBoss + CoreParameters.bossScoreInterval)
+            if (score > lastBoss + CoreParameters.bossScoreInterval)
             {
                 BossFightStart();
             }
@@ -61,17 +69,13 @@ class Scene : GameObject
                 AddChild(fuel);
             }
         }
-        else
-        {
-            player.lastFuel = Time.time;
-        }
     }
     void SpawnAsteroid()
     {
         if (Time.time > timeLastAsteroid + Mathf.Clamp(CoreParameters.maxTimeBetweenAsteroids - score, CoreParameters.minTimeBetweenAsteroids, CoreParameters.maxTimeBetweenAsteroids))
              return;
         //Console.WriteLine("attempt spawn");
-        Asteroid asteroid = new Asteroid(this,Utils.Random(CoreParameters.minSpawnXAsteroids, CoreParameters.maxSpawnXAsteroids), player.y, Asteroid.Type.Bundle);
+        Asteroid asteroid = new Asteroid(this,Utils.Random(CoreParameters.minSpawnXAsteroids, CoreParameters.maxSpawnXAsteroids), player.y, Utils.Random(0, 10) > 6 ? Asteroid.Type.Bundle : Asteroid.Type.Normal);
         foreach(Asteroid asteroid1 in latestAsteroids)
         {
             if (asteroid.DistanceTo(asteroid1) < Mathf.Clamp(CoreParameters.maxDistanceToOther - score, CoreParameters.minDistanceToOther, CoreParameters.maxDistanceToOther))
@@ -100,7 +104,7 @@ class Scene : GameObject
         if (player.health <= 0 && playerDestroyAnimation == null)
         {
             player.Destroy();
-            playerDestroyAnimation = new DestroyAnimation(CoreParameters.playerPath + "death.png", 8, 1, this, 0, 8);
+            playerDestroyAnimation = new DestroyAnimation(CoreParameters.playerPath + "death.png", 8, 1, this, 0, 4);
             AddChildAt(playerDestroyAnimation, GetChildCount());
             playerDestroyAnimation.SetXY(player.x, player.y);
             playerAlive = false;
@@ -130,12 +134,12 @@ class Scene : GameObject
     public void BossFightEnd()
     {
         bossFight = false;
-        lastBoss = Time.time;
+        lastBoss = score;
         timeLastAsteroid = Time.time;
 
         for (int i = 0; i < latestAsteroids.Length; i++)
         {
-            latestAsteroids[i] = new Asteroid(this, 1000, Utils.Random(0, 600), Asteroid.Type.Normal);
+            latestAsteroids[i] = new Asteroid(this, 1000, Utils.Random(0, game.height / game.scaleY), Asteroid.Type.Normal);
         }
 
         AddChild(latestAsteroids[0]);
