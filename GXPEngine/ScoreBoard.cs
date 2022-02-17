@@ -244,10 +244,10 @@ void CheckForMultipleRecord(int pRecordNumber)
     {
         int clampedDeltaTime = Mathf.Min(Time.deltaTime, 40);
 
-        if (Input.GetKeyUp(Key.W) && !typingNewName)
+        if (Input.GetKeyUp(Key.W))
             LateDestroy();
 
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetKeyUp(Key.SPACE))
         {
             //Check for Click on Start Game btn
             if (Input.mouseX > startBtn.x - startBtn.width / 2 && Input.mouseX < startBtn.x + startBtn.width / 2
@@ -266,14 +266,8 @@ void CheckForMultipleRecord(int pRecordNumber)
                     newPlayerBtn.Text("Create Player Name!", true);
                 }
             }
-
-            //Check for Click on New Player btn
-            if (Input.mouseX > newPlayerBtn.x - newPlayerBtn.width / 2 && Input.mouseX < newPlayerBtn.x + newPlayerBtn.width / 2
-                && Input.mouseY > newPlayerBtn.y - newPlayerBtn.height / 2 && Input.mouseY < newPlayerBtn.y + newPlayerBtn.height / 2)
-            {
-                latestName = CoreParameters.playerNames[Utils.Random(0, CoreParameters.playerNames.Count-1)];
-                newPlayerBtn.Text("Player: "+ latestName, true);
-            }
+            latestName = CoreParameters.playerNames[Utils.Random(0, CoreParameters.playerNames.Count - 1)];
+            newPlayerBtn.Text("Player: " + latestName, true);
         }
     }
 }
