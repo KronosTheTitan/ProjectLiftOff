@@ -55,7 +55,9 @@ class Boss : Vehicle
         if (Time.time > lastShotMain + CoreParameters.bossMainGunInterval)
         {
             float dirToPlayer = Mathf.Atan2(scene.player.y - y, scene.player.x - x) * 180 / (Mathf.PI);
-            scene.AddChild(new Bullet(x, y, dirToPlayer, this, pScene: scene));
+            Asteroid asteroid = new Asteroid(scene, x, y, Asteroid.Type.Normal);
+            asteroid.rotation = dirToPlayer-180;
+            scene.AddChild(asteroid);
             lastShotMain = Time.time;
         }
         if (Time.time > lastShot + CoreParameters.bossSideGunInterval)

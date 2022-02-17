@@ -38,7 +38,7 @@ class Asteroid : Sprite
     {
         if (scene.playerAlive)
         {
-            x -= speed * Time.deltaTime;
+            Move(-speed*Time.deltaTime, 0);
 
             if (x < -10)
             {
