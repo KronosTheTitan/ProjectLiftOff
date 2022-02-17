@@ -17,7 +17,7 @@ class Player : Vehicle
     List<PlayerAnimation> playerAnimations; //Playeranimation object list, one for each state
     PlayerAnimation currentPlayerAnimation; //Player animation object of currently active state
     State currentState; //Currently active state
-    float speed = .75f;
+    float speed = .5f;
     float lastShot;
     float lastSpark;
     Sound dieSound;

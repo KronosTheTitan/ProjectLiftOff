@@ -19,9 +19,9 @@ void setup() {
 void readJoystick() {
   Serial.print(analogRead(joystickY), DEC);
   if (analogRead(joystickY) > 530) {
-    Keyboard.press( 217);
+    Keyboard.press( 218);
   } else if (analogRead(joystickY) < 490) {
-    Keyboard.press(218);
+    Keyboard.press(217);
   }
   Serial.print(analogRead(joystickY), DEC);
   Serial.print(",");
