@@ -47,7 +47,7 @@ class Vehicle : Sprite
                     if (bullet.shooter != this)
                     {
                         whenHit();
-                        //Console.WriteLine("Collision!");
+                        Console.WriteLine("Collision!");
                         gameObject.LateDestroy();
                     }
                 }
