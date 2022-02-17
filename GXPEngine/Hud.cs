@@ -48,10 +48,9 @@ class Hud : GameObject
             healthHudElement.RemoveChild(child);
         }
 
-        Sprite sprite;
-        for (int i = 1; i <= playerHealth; i++) //Create hearts for every liefepoint of Player. Empty hearts for the remaining difference to maxhealth
+        for (int i = 1; i <= playerHealth; i++)
         {
-            sprite = new Sprite("health.png", false, false);
+            Sprite sprite = new Sprite("health.png", false, false);
             sprite.SetOrigin(sprite.width / 2, sprite.height / 2);
             sprite.scale = CoreParameters.hudHealthScale;
             sprite.SetXY(i * healthHudElement.width - healthHudElement.width / 2, healthHudElement.height);
@@ -164,6 +163,7 @@ class Hud : GameObject
             activeScene.player.health = 0;
         }
 
+        
         //Power update
         if (!activeScene.playerAlive)
         {
@@ -171,12 +171,12 @@ class Hud : GameObject
         }
         else
         {
-            if (powerbarFill.width < 100 && !activeScene.player.isInSpecialState)
+            if (powerbarFill.width < CoreParameters.hudFuelWidth && !activeScene.player.isInSpecialState)
             {
                 powerbarAmount += CoreParameters.hudFuelbarLooseOverTime * clampedDeltaTime;
                 //Console.WriteLine("fuelbarFillAmount "+ fuelbarFillAmount);
                 //Console.WriteLine("fuelbarFill.width - 2 " + (fuelbarFill.width - 2).ToString());
-                if (powerbarAmount >= powerbarFill.width + 2)
+                if (powerbarAmount >= powerbarFill.width + 1)
                 {
                     //Console.WriteLine("go Down");
                     UpdatePowerbar(1);
@@ -186,9 +186,9 @@ class Hud : GameObject
                 //Console.WriteLine("fuelbarFill.x " + fuelbarFill.x);
 
             }
-            else if (powerbarFill.width >= 100 && !activeScene.player.isInSpecialState)
+            else if (powerbarFill.width >= CoreParameters.hudFuelWidth && !activeScene.player.isInSpecialState)
             {
-                powerbarFill.width = 100;
+                powerbarFill.width = CoreParameters.hudFuelWidth;
                 activeScene.player.isInSpecialState = true;
             }
 
@@ -197,7 +197,7 @@ class Hud : GameObject
                 powerbarAmount -= CoreParameters.hudFuelbarLooseOverTime * clampedDeltaTime;
                 //Console.WriteLine("fuelbarFillAmount "+ fuelbarFillAmount);
                 //Console.WriteLine("fuelbarFill.width - 2 " + (fuelbarFill.width - 2).ToString());
-                if (powerbarAmount <= powerbarFill.width - 2)
+                if (powerbarAmount <= powerbarFill.width - 1)
                 {
                     //Console.WriteLine("go Down");
                     UpdatePowerbar(-1);
@@ -206,12 +206,12 @@ class Hud : GameObject
                 //Console.WriteLine("fuelbarFill.width "+ fuelbarFill.width);
                 //Console.WriteLine("fuelbarFill.x " + fuelbarFill.x);
 
-            }
-            else if (powerbarFill.width <= 0 && activeScene.player.isInSpecialState)
+            } else if (powerbarFill.width <= 0 && activeScene.player.isInSpecialState)
             {
                 powerbarFill.width = 0;
                 activeScene.player.isInSpecialState = false;
             }
         }
+        
     }
 }

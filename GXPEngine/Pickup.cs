@@ -48,7 +48,7 @@ class Pickup : Sprite
         if(activeScene.playerAlive)
             x -= moveSpeed * Time.deltaTime; //Move pickup
 
-        if (x < 0)
+        if (x < -10)
         {
             activeScene.fuelTanks.Remove(this);
             Destroy();
