@@ -1,24 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using GXPEngine;
 class Bullet : Sprite
 {
     public Vehicle shooter;
-    public Bullet(float iX,float iY,float direction,Vehicle iShooter,string fileName = "circle.png") : base(fileName)
+
+    Scene scene;
+
+    public Bullet(float iX, float iY, float direction, Vehicle iShooter, string fileName = CoreParameters.playerPath + "laser.png", Scene pScene = null) : base(fileName)
     {
-        x = iX;
-        y = iY;
         shooter = iShooter;
         SetOrigin(width / 2, height / 2);
+        SetXY(iX + shooter.width / 2, iY);
         SetScaleXY(0.5f, 0.5f);
         rotation = direction;
+        scene = pScene;
+        Console.WriteLine("fired shot");
     }
-    void Update()
+    public void Update()
     {
         Move(CoreParameters.bulletSpeed * Time.deltaTime, 0);
-        if (x < -10 || x > 810)
+
+        if (x < -10 || x > game.width)
+        {
+            if (scene != null && scene.playerBullets.Contains(this))
+            {
+                scene.playerBullets.Remove(this);
+            }
             Destroy();
+        }
     }
 }

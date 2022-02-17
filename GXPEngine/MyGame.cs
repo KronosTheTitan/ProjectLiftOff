@@ -8,7 +8,6 @@ public class MyGame : Game
 
     public MyGame() : base(800, 600, false, true)
     {
-        //LoadScene();
         LoadScoreBoard();
     }
 
@@ -18,7 +17,7 @@ public class MyGame : Game
         AddChild(activeScene);
 
         activeHud = new Hud(activeScene, pPlayerName);
-        AddChild(activeHud);
+        activeScene.AddChild(activeHud);
     }
 
     public void LoadScoreBoard()
@@ -29,27 +28,6 @@ public class MyGame : Game
         activeScoreBoard = new ScoreBoard(latestScore, latestName);
         AddChild(activeScoreBoard);   
     }    
-
-    void Update()
-    {
-        if (Input.GetKeyDown(Key.Q) && activeScene != null) //For Testing. Destroy Scene
-        {
-            activeScene = null;
-            foreach (GameObject child in GetChildren())
-            {
-                child.LateDestroy();
-            }
-        }
-
-        if (Input.GetKeyDown(Key.W) && activeScoreBoard != null) //For Testing. Destroy ScoreBoard
-        {
-            activeScoreBoard = null;
-            foreach (GameObject child in GetChildren())
-            {
-                child.LateDestroy();
-            }
-        }
-    }
 
     static void Main()
     {

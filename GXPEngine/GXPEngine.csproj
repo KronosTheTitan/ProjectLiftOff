@@ -39,6 +39,7 @@
     <Compile Include="Boss.cs" />
     <Compile Include="Bullet.cs" />
     <Compile Include="CoreParameters.cs" />
+    <Compile Include="ScreenShaker.cs" />
     <Compile Include="FuelTank.cs" />
     <Compile Include="GXPEngine\AddOns\Gizmos.cs" />
     <Compile Include="GXPEngine\AddOns\SpriteBatch.cs" />
@@ -89,6 +90,10 @@
     <Compile Include="Hud.cs" />
     <Compile Include="Pickup.cs" />
     <Compile Include="ScoreBoard.cs" />
+    <Compile Include="DestroyAnimation.cs" />
+    <Compile Include="Particle.cs" />
+    <Compile Include="Emitter.cs" />
+    <Compile Include="PlayerAnimation.cs" />
     <Compile Include="Vehicle.cs" />
   </ItemGroup>
 </Project>

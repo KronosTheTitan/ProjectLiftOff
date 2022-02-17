@@ -6,6 +6,9 @@ using GXPEngine;
 
 class ScoreBoard : GameObject
 {
+    EasyDraw startBtn;
+    EasyDraw newPlayerBtn;
+
     List<string> names = new List<string>();
     List<int> scores = new List<int>();
     int latestScore;
@@ -13,9 +16,6 @@ class ScoreBoard : GameObject
     bool typingNewName = false;
     float typeIndicatorTime;
     bool showTpeindicator = false;
-
-    EasyDraw startBtn;
-    EasyDraw newPlayerBtn;
 
     public ScoreBoard(int pLatestScore = 0, string pLatestName = "") : base()
     {
@@ -71,7 +71,7 @@ class ScoreBoard : GameObject
         newPlayerBtn.TextFont(font);
         newPlayerBtn.TextAlign(CenterMode.Min, CenterMode.Center);
         newPlayerBtn.Fill(Color.White);
-        newPlayerBtn.Text("New Player");
+        newPlayerBtn.Text(latestName == "" ? "New Player" : latestName);
         newPlayerBtn.SetXY(CoreParameters.scoreBoardNewPlayerrBtnPosX, CoreParameters.scoreBoardNewPlayerrBtnPosY);
         AddChild(newPlayerBtn);
     }
@@ -137,7 +137,7 @@ class ScoreBoard : GameObject
                         string value = line.Substring(splitPos + 1);
                         string[] numbers = value.Split(',');
 
-                        switch (key) //Read all values from saveFile into PlayerData
+                        switch (key) //Read all values from saveFile
                         {
                             case "names":
                                 foreach (string number in numbers)
@@ -166,8 +166,8 @@ class ScoreBoard : GameObject
     }
 
     /**
-    void CheckForMultipleRecord(int pRecordNumber)
-    {
+void CheckForMultipleRecord(int pRecordNumber)
+{
         string newLatestName = pRecordNumber == 0 ? latestName : latestName.Substring(latestName.Length-3) + "("+pRecordNumber.ToString()+")";
 
         if (names.Contains(latestName))
@@ -178,7 +178,7 @@ class ScoreBoard : GameObject
             latestName = newLatestName;
             return;
         }
-    }
+}
     **/
 
     void SaveGame(string pFilename)
@@ -216,7 +216,8 @@ class ScoreBoard : GameObject
                     names.Add(latestName);
                 }
 
-                if (names.Count > CoreParameters.scoreTableNumOfRows) {
+                if (names.Count > CoreParameters.scoreTableNumOfRows)
+                {
                     scores.RemoveRange(CoreParameters.scoreTableNumOfRows, scores.Count - CoreParameters.scoreTableNumOfRows);
                     names.RemoveRange(CoreParameters.scoreTableNumOfRows, names.Count - CoreParameters.scoreTableNumOfRows);
                 }
@@ -302,6 +303,7 @@ class ScoreBoard : GameObject
                 latestName += (Input.GetKeyDown(Key.W) ? "W" : "");
                 latestName += (Input.GetKeyDown(Key.X) ? "X" : "");
                 latestName += (Input.GetKeyDown(Key.Y) ? "Y" : "");
+                latestName += (Input.GetKeyDown(Key.Z) ? "Z" : "");
                 latestName += (Input.GetKeyDown(Key.ONE) ? "1" : "");
                 latestName += (Input.GetKeyDown(Key.TWO) ? "2" : "");
                 latestName += (Input.GetKeyDown(Key.THREE) ? "3" : "");
@@ -314,10 +316,9 @@ class ScoreBoard : GameObject
                 latestName += (Input.GetKeyDown(Key.ZERO) ? "0" : "");
             }
 
-            if (Input.GetKeyDown(Key.BACKSPACE))
+            if (Input.GetKeyDown(Key.BACKSPACE) && latestName.Length > 0)
             {
-                if(latestName.Length > 0)
-                    latestName = latestName.Substring(0, latestName.Length - 1);
+                latestName = latestName.Substring(0, latestName.Length - 1);
             }
 
             if (typeIndicatorTime > 500)
