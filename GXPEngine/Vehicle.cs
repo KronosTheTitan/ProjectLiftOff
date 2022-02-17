@@ -60,7 +60,7 @@ class Vehicle : Sprite
         health--;
         if (this is Player)
         {
-            scene.hud.UpdateHealth(-1);
+            scene.hud.UpdateHealth();
             hitSound.Play();
         }
         else if (health <= 0)
