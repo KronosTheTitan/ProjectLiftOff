@@ -9,27 +9,27 @@ class Scene : GameObject
     public int score = 0;
     public bool playerAlive = true;
     public Hud hud;
-    public List<FuelTank> fuelTanks = new List<FuelTank>();
-
+    public List<Pickup> fuelTanks = new List<Pickup>();
     public List<Bullet> playerBullets = new List<Bullet>();
+    public bool bossFight = false;
     ScenePivot scenePivot;
     Asteroid[] latestAsteroids = new Asteroid[3];
     DestroyAnimation playerDestroyAnimation;
     float timeLastAsteroid = 0;
     float lastScore = CoreParameters.scoreInterval;
     float lastBoss = 0;
-    bool bossFight = false;
+
+    SoundChannel song;
 
     public Scene()
     {
-        player = new Player(3, "triangle.png", this);
+        song = new Sound(CoreParameters.soundPath + "song.wav", true).Play();
+        player = new Player(3, CoreParameters.playerPath + "base.png", this);
         player.SetXY(100, 600 / 2);
         AddChild(player);
         scenePivot = new ScenePivot();
         AddChild(scenePivot);
         timeLastAsteroid = Time.time;
-
-        lastBoss = Time.time;
         score = 0;
 
         for (int i = 0; i < latestAsteroids.Length; i++)
@@ -54,7 +54,11 @@ class Scene : GameObject
             UpdateScore();
             if (fuelTanks.Count < 3)
             {
-                FuelTank fuel = new FuelTank(this);
+                Pickup fuel = new Pickup(this, Pickup.Type.Fuel);
+                fuel.x = game.width / game.scaleX;
+                fuel.y = Utils.Random(10, game.height - 10);
+                fuelTanks.Add(fuel);
+                AddChild(fuel);
             }
         }
         else
@@ -96,7 +100,7 @@ class Scene : GameObject
         if (player.health <= 0 && playerDestroyAnimation == null)
         {
             player.Destroy();
-            playerDestroyAnimation = new DestroyAnimation(CoreParameters.playerPath + "death.png", 8, 1, 0, 8);
+            playerDestroyAnimation = new DestroyAnimation(CoreParameters.playerPath + "death.png", 8, 1, this, 0, 8);
             AddChildAt(playerDestroyAnimation, GetChildCount());
             playerDestroyAnimation.SetXY(player.x, player.y);
             playerAlive = false;
@@ -116,7 +120,6 @@ class Scene : GameObject
         {
             lastScore = Time.time;
             score++;
-            hud.UpdateScore(1);
         }
     }
     void BossFightStart()
@@ -142,6 +145,7 @@ class Scene : GameObject
 
     protected override void OnDestroy()
     {
+        song.IsPaused = true;
         ((MyGame)game).LoadScoreBoard();
     }
 }

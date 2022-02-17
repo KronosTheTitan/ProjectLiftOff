@@ -18,8 +18,9 @@ class Player : Vehicle
     State currentState; //Currently active state
     float speed = .75f;
     float lastShot;
-    bool isInSpecialState = true;
+    bool isInSpecialState = false;
     float lastSpark;
+    Sound dieSound;
 
     public Player(int iHealth,string filename, Scene pScene) : base(iHealth,filename, pScene)
     {
@@ -29,6 +30,7 @@ class Player : Vehicle
         health = iHealth;
         CreateChildren();
         lastFuel = Time.time;
+        dieSound = new Sound(CoreParameters.soundPath + "die.wav");
     }
 
     public override void Update()
@@ -90,6 +92,7 @@ class Player : Vehicle
     {
         if (Input.GetKey(Key.SPACE) && Time.time > lastShot + CoreParameters.playerFireSpeed)
         {
+            shootSound.Play();
             Bullet bullet = new Bullet(x, y, 0, this, CoreParameters.playerPath + "laser.png", scene);
             scene.AddChild(bullet);
             scene.playerBullets.Add(bullet);
@@ -125,6 +128,11 @@ class Player : Vehicle
                 }
             }
         }
+    }
+
+    protected override void OnDestroy()
+    {
+        dieSound.Play();
     }
 
     void SetCurrentState(State pStateToSwitchTo)

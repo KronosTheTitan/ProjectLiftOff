@@ -40,7 +40,10 @@ class Particle : Sprite
         scale += scaleSteps; //Change scale
 
         Move(speed * clampedDeltaTime, 0);
-        x -= moveLeftSpeed * clampedDeltaTime;
+        if (activeScene.playerAlive)
+        {
+            x -= moveLeftSpeed * clampedDeltaTime;
+        }
     }
 
     void ShouldRender()

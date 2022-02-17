@@ -8,12 +8,16 @@ class Boss : Vehicle
     float speed = .3f;
     float lastShotMain;
     float lastShot;
-    public Boss(Scene iScene, string fileName = "triangle.png") : base(10, fileName, iScene)
+    BossAnimation bossAnimation;
+
+    public Boss(Scene iScene, string fileName = "bossBase.png") : base(10, fileName, iScene)
     {
-        y = 300;
-        x = 2000;
-        SetScaleXY(6, 3);
-        rotation = 270;
+        alpha = 0;
+        scale = 4f;
+        y = (game.height / game.scaleY) / 2;
+        x = game.width / game.scaleX;
+        bossAnimation = new BossAnimation();
+        AddChild(bossAnimation);
     }
 
     public override void Update()
@@ -29,19 +33,21 @@ class Boss : Vehicle
         }
         base.Update();
     }
+
     public override void whenHit()
     {
         health--;
         if (health <= 0)
         {
-            ExtraHealth Ehealth = new ExtraHealth("star.png", scene);
-            scene.AddChild(Ehealth);
-            Ehealth.x = x;
-            Ehealth.y = y;
+            Pickup health = new Pickup(scene, Pickup.Type.Health);
+            scene.AddChild(health);
+            health.x = x;
+            health.y = y;
             scene.BossFightEnd();
             Destroy();
         }
     }
+
     public override void Shoot()
     {
         if(Time.time > lastShotMain + CoreParameters.bossMainGunInterval)
@@ -52,9 +58,16 @@ class Boss : Vehicle
         }
         if(Time.time > lastShot + CoreParameters.bossSideGunInterval)
         {
-            scene.AddChild(new Bullet(x, y+width/2, 180, this));
-            scene.AddChild(new Bullet(x, y-width/2, 180, this));
+            scene.AddChild(new Asteroid(scene, x, y+width/2, Asteroid.Type.Normal));
+            scene.AddChild(new Asteroid(scene, x, y-width/2, Asteroid.Type.Normal));
             lastShot = Time.time;
         }
+    }
+
+    protected override void OnDestroy()
+    {
+        Emitter emitter = new Emitter("smoke.png", 1500, scene, speed);
+        emitter.SetScale(0.02f, 0.025f, 0.002f).SetSpawnPosition(x - 100, x + 100, y - 100, y + 100).SetVelocity(0, 360, 0.02f, 0.04f).SetColors(0.12f, 0.5f, 0.12f, 0.8f);
+        emitter.Emit(10);
     }
 }
