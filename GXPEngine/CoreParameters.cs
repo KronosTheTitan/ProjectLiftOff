@@ -19,7 +19,7 @@ class CoreParameters
 
     public const float minSpawnXAsteroids = 1000;
     public const float maxSpawnXAsteroids = 2500;
-  
+
     public const float scoreInterval = 200;
 
     public const float minDistanceToOther = 200;
@@ -53,7 +53,7 @@ class CoreParameters
     //Fuel
     public const int hudFuelWidth = 200;
     public const int hudFuelHeight = 10;
-    public const float hudFuelPosX = -80f;
+    public const float hudFuelPosX = 120;
     public const float hudFuelPosY = 80f;
     public const float hudFuelbarScale = 0.5f;
 
@@ -104,4 +104,109 @@ class CoreParameters
     public const float scoreBoardNewPlayerrBtnPosX = 200f;
     public const float scoreBoardNewPlayerrBtnPosY = 500f;
     public const float scoreBoardNewPlayerrBtnFontSize = 15f;
+
+    public static List<string> playerNames = new List<string>()
+    {
+        "Joey",
+        "Aurelio",
+        "Evan",
+        "Donny",
+        "Foster",
+        "Dwayne",
+        "Grady",
+        "Quinton",
+        "Darin",
+        "Mickey",
+        "Hank",
+        "Kim",
+        "Peter",
+        "Jeremy",
+        "Jess",
+        "Jimmie",
+        "Vern",
+        "Pasquale",
+        "Romeo",
+        "Chris",
+        "Dale",
+        "Beau",
+        "Cliff",
+        "Timothy",
+        "Raphael",
+        "Brain",
+        "Mauro",
+        "Luke",
+        "Myron",
+        "Omar",
+        "Reynaldo",
+        "Major",
+        "Clinton",
+        "Nolan",
+        "Raymond",
+        "Lucien",
+        "Carey",
+        "Winfred",
+        "Dan",
+        "Abel",
+        "Elliott",
+        "Brent",
+        "Chuck",
+        "Dirk",
+        "Tod",
+        "Emerson",
+        "Dewey",
+        "Scot",
+        "Enrique",
+        "Al",
+        "Beatrice",
+        "Brandy",
+        "Kathy",
+        "Jane",
+        "Marcy",
+        "Shelly",
+        "Lucy",
+        "Cathy",
+        "Joanna",
+        "Doris",
+        "Lindsay",
+        "Staci",
+        "Shelia",
+        "Rosanne",
+        "Rebecca",
+        "Luz",
+        "Flora",
+        "Rosalie",
+        "Karla",
+        "Phoebe",
+        "Meagan",
+        "Virginia",
+        "Amanda",
+        "Katy",
+        "Karla",
+        "Deanne",
+        "Pearl",
+        "Christi",
+        "Victoria",
+        "Ola",
+        "Alexandra",
+        "Marina",
+        "Lorraine",
+        "Sybil",
+        "Adeline",
+        "Taylor",
+        "Anita",
+        "Aurora",
+        "Neva",
+        "Alisha",
+        "Maria",
+        "Erna",
+        "Gwendolyn",
+        "Brenda",
+        "Bethany",
+        "Sybil",
+        "Earline",
+        "June",
+        "Brandy",
+        "Sue"
+    };
+
 }

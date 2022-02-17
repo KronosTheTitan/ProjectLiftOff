@@ -13,9 +13,6 @@ class ScoreBoard : GameObject
     List<int> scores = new List<int>();
     int latestScore;
     string latestName;
-    bool typingNewName = false;
-    float typeIndicatorTime;
-    bool showTpeindicator = false;
 
     public ScoreBoard(int pLatestScore = 0, string pLatestName = "") : base()
     {
@@ -84,6 +81,10 @@ class ScoreBoard : GameObject
         int lastIndex = 0;
         foreach (string name in names)
         {
+            if (name == "")
+            {
+                break;
+            }
             //Names = Column 1
             CreateCell(true, name, names.IndexOf(name) + 1);
             //Sores = Column 2
@@ -270,75 +271,9 @@ void CheckForMultipleRecord(int pRecordNumber)
             if (Input.mouseX > newPlayerBtn.x - newPlayerBtn.width / 2 && Input.mouseX < newPlayerBtn.x + newPlayerBtn.width / 2
                 && Input.mouseY > newPlayerBtn.y - newPlayerBtn.height / 2 && Input.mouseY < newPlayerBtn.y + newPlayerBtn.height / 2)
             {
-                typingNewName = true;
-                newPlayerBtn.Text("", true);
-                latestName = "";
+                latestName = CoreParameters.playerNames[Utils.Random(0, CoreParameters.playerNames.Count-1)];
+                newPlayerBtn.Text("Player: "+ latestName, true);
             }
-        }
-
-        if (typingNewName)
-        {
-            if (latestName.Length < CoreParameters.playerNameMaxLength)
-            {
-                //Register typing
-                latestName += (Input.GetKeyDown(Key.A) ? "A" : "");
-                latestName += (Input.GetKeyDown(Key.B) ? "B" : "");
-                latestName += (Input.GetKeyDown(Key.C) ? "C" : "");
-                latestName += (Input.GetKeyDown(Key.D) ? "D" : "");
-                latestName += (Input.GetKeyDown(Key.E) ? "E" : "");
-                latestName += (Input.GetKeyDown(Key.F) ? "F" : "");
-                latestName += (Input.GetKeyDown(Key.G) ? "G" : "");
-                latestName += (Input.GetKeyDown(Key.H) ? "H" : "");
-                latestName += (Input.GetKeyDown(Key.I) ? "I" : "");
-                latestName += (Input.GetKeyDown(Key.J) ? "J" : "");
-                latestName += (Input.GetKeyDown(Key.K) ? "K" : "");
-                latestName += (Input.GetKeyDown(Key.L) ? "L" : "");
-                latestName += (Input.GetKeyDown(Key.M) ? "M" : "");
-                latestName += (Input.GetKeyDown(Key.N) ? "N" : "");
-                latestName += (Input.GetKeyDown(Key.O) ? "O" : "");
-                latestName += (Input.GetKeyDown(Key.P) ? "P" : "");
-                latestName += (Input.GetKeyDown(Key.Q) ? "Q" : "");
-                latestName += (Input.GetKeyDown(Key.R) ? "R" : "");
-                latestName += (Input.GetKeyDown(Key.S) ? "S" : "");
-                latestName += (Input.GetKeyDown(Key.T) ? "T" : "");
-                latestName += (Input.GetKeyDown(Key.U) ? "U" : "");
-                latestName += (Input.GetKeyDown(Key.V) ? "V" : "");
-                latestName += (Input.GetKeyDown(Key.W) ? "W" : "");
-                latestName += (Input.GetKeyDown(Key.X) ? "X" : "");
-                latestName += (Input.GetKeyDown(Key.Y) ? "Y" : "");
-                latestName += (Input.GetKeyDown(Key.Z) ? "Z" : "");
-                latestName += (Input.GetKeyDown(Key.ONE) ? "1" : "");
-                latestName += (Input.GetKeyDown(Key.TWO) ? "2" : "");
-                latestName += (Input.GetKeyDown(Key.THREE) ? "3" : "");
-                latestName += (Input.GetKeyDown(Key.FOUR) ? "4" : "");
-                latestName += (Input.GetKeyDown(Key.FIVE) ? "5" : "");
-                latestName += (Input.GetKeyDown(Key.SIX) ? "6" : "");
-                latestName += (Input.GetKeyDown(Key.SEVEN) ? "7" : "");
-                latestName += (Input.GetKeyDown(Key.EIGHT) ? "8" : "");
-                latestName += (Input.GetKeyDown(Key.NINE) ? "9" : "");
-                latestName += (Input.GetKeyDown(Key.ZERO) ? "0" : "");
-            }
-
-            if (Input.GetKeyDown(Key.BACKSPACE) && latestName.Length > 0)
-            {
-                latestName = latestName.Substring(0, latestName.Length - 1);
-            }
-
-            if (typeIndicatorTime > 500)
-            {
-                typeIndicatorTime = 0;
-                showTpeindicator = !showTpeindicator;
-            }
-
-            typeIndicatorTime += clampedDeltaTime;
-
-            if (Input.GetKeyDown(Key.ENTER))
-            {
-                typingNewName = false;
-                showTpeindicator = false;
-            }
-
-            newPlayerBtn.Text(latestName + (showTpeindicator ? "|" : ""), true);
         }
     }
 }

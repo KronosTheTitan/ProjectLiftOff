@@ -42,7 +42,7 @@ class Scene : GameObject
 
         for (int i = 0; i < latestAsteroids.Length; i++)
         {
-            latestAsteroids[i] = new Asteroid(this, 1000, Utils.Random(0, 600), Asteroid.Type.Normal);
+            latestAsteroids[i] = new Asteroid(this, 1000, Utils.Random(0, game.height / game.scaleY), Asteroid.Type.Normal);
         }
 
         AddChild(latestAsteroids[0]);
