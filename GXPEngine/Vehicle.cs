@@ -9,11 +9,16 @@ class Vehicle : Sprite
     public int health;
     public Scene scene;
 
-    public Vehicle(int iHealth,string fileName, Scene iScene) : base(fileName)
+    protected Sound shootSound;
+    protected Sound hitSound;
+
+    public Vehicle(int iHealth, string fileName, Scene iScene) : base(fileName)
     {
         health = iHealth;
         scene = iScene;
         SetOrigin(width / 2, height / 2);
+        shootSound = new Sound(CoreParameters.soundPath + "shot.wav");
+        hitSound = new Sound(CoreParameters.soundPath + "explosion.wav");
     }
     public virtual void Shoot()
     {
@@ -22,11 +27,11 @@ class Vehicle : Sprite
     public virtual void Update()
     {
         GameObject[] collisions = GetCollisions();
-        if(collisions.Length > 0)
+        if (collisions.Length > 0)
         {
-            foreach(GameObject gameObject in collisions)
+            foreach (GameObject gameObject in collisions)
             {
-                if(gameObject is Asteroid && scene != null)
+                if (gameObject is Asteroid && scene != null && this is Player)
                 {
                     ScreenShaker screenShaker = new ScreenShaker(300, 3, (Scene)parent);
                     AddChild(screenShaker);
@@ -36,10 +41,10 @@ class Vehicle : Sprite
                     //Console.WriteLine("Collision!");
                     gameObject.LateDestroy();
                 }
-                if(gameObject is Bullet)
+                if (gameObject is Bullet)
                 {
                     Bullet bullet = (Bullet)gameObject;
-                    if(bullet.shooter != this)
+                    if (bullet.shooter != this)
                     {
                         whenHit();
                         Console.WriteLine("Collision!");
@@ -54,13 +59,13 @@ class Vehicle : Sprite
     {
         health--;
         if (this is Player)
-            scene.hud.UpdateHealth(-1);
-        if (health <= 0)
         {
-            if (!(this is Player))
-            {
-                LateDestroy();
-            } 
+            scene.hud.UpdateHealth();
+            hitSound.Play();
+        }
+        else if (health <= 0)
+        {
+            LateDestroy();
         }
     }
 }

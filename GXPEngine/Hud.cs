@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using GXPEngine;
 class Hud : GameObject
 {
@@ -7,12 +8,17 @@ class Hud : GameObject
 
     //Hud elemets
     EasyDraw fuelbarHudElement;
+    EasyDraw powerbarHudElement;
     EasyDraw healthHudElement;
     EasyDraw scoreHudElement;
 
     Scene activeScene;
+
     Sprite fuelbarFill;
     float fuelbarFillAmount;
+
+    Sprite powerbarFill;
+    float powerbarAmount;
 
     public Hud(Scene pActiveScene, string pName) : base()
     {
@@ -28,10 +34,13 @@ class Hud : GameObject
 
         //Create hud element for score
         CreateScoreElement();
+
+        CreatePowerElement();
     }
 
-    public void UpdateHealth(int healthBoost)
+    public void UpdateHealth()
     {
+        //int playerHealthTotal = activeScene.player.health - healthBoost;
         int playerHealth = activeScene.player.health; //New player health
 
         foreach (Sprite child in healthHudElement.GetChildren()) //Empty old healthbar
@@ -42,14 +51,7 @@ class Hud : GameObject
         Sprite sprite;
         for (int i = 1; i <= playerHealth; i++) //Create hearts for every liefepoint of Player. Empty hearts for the remaining difference to maxhealth
         {
-            if (playerHealth >= i)
-            {
-                sprite = new Sprite("health.png", false, false);
-            }
-            else
-            {
-                sprite = new Sprite("health.png", false, false);
-            }
+            sprite = new Sprite("health.png", false, false);
             sprite.SetOrigin(sprite.width / 2, sprite.height / 2);
             sprite.scale = CoreParameters.hudHealthScale;
             sprite.SetXY(i * healthHudElement.width - healthHudElement.width / 2, healthHudElement.height);
@@ -59,7 +61,16 @@ class Hud : GameObject
 
     public void UpdateFuelbar(int pFuelbarBoost)
     {
-        fuelbarFillAmount = Mathf.Round(100 * (Time.time - activeScene.player.lastFuel) / CoreParameters.maxTimeBetweenFuel);
+        fuelbarFill.x += pFuelbarBoost;
+        fuelbarFill.width += 2 * pFuelbarBoost;
+        fuelbarFillAmount = fuelbarFill.width;
+    }
+
+    public void UpdatePowerbar(int pPowerbarBoost)
+    {
+        powerbarFill.x += pPowerbarBoost;
+        powerbarFill.width += 2 * pPowerbarBoost;
+        powerbarAmount = powerbarFill.width;
     }
 
     public void UpdateScore(int pScoreBoost)
@@ -73,7 +84,7 @@ class Hud : GameObject
         healthHudElement.SetOrigin(healthHudElement.width / 2, healthHudElement.height / 2);
         healthHudElement.SetXY(CoreParameters.hudHealthPosX, CoreParameters.hudHealthPosY);
         AddChild(healthHudElement);
-        UpdateHealth(0);
+        UpdateHealth();
     }
 
     void CreateFuelElement()
@@ -85,10 +96,25 @@ class Hud : GameObject
         fuelbarFill.SetOrigin(fuelbarFill.width / 2, fuelbarFill.height / 2);
         fuelbarFill.scale = CoreParameters.hudFuelbarScale;
         fuelbarFill.SetXY(fuelbarHudElement.width, fuelbarHudElement.height);
-        fuelbarFill.width = Mathf.Round(100 * (Time.time - activeScene.player.lastFuel) / CoreParameters.maxTimeBetweenFuel);
+        fuelbarFill.width = CoreParameters.hudFuelWidth;
         fuelbarHudElement.AddChild(fuelbarFill);
         AddChild(fuelbarHudElement);
         fuelbarFillAmount = fuelbarFill.width;
+    }
+
+    void CreatePowerElement()
+    {
+        powerbarHudElement = new EasyDraw(CoreParameters.hudFuelWidth, CoreParameters.hudFuelHeight, false);
+        powerbarHudElement.SetOrigin(powerbarHudElement.width / 2, powerbarHudElement.height / 2);
+        powerbarHudElement.SetXY(CoreParameters.hudFuelPosX, CoreParameters.hudFuelPosY + 20);
+        powerbarFill = new Sprite("powerbar.png", false, false);
+        powerbarFill.SetOrigin(powerbarFill.width / 2, powerbarFill.height / 2);
+        powerbarFill.scale = CoreParameters.hudFuelbarScale;
+        powerbarFill.SetXY(powerbarHudElement.width, powerbarHudElement.height);
+        powerbarFill.width = CoreParameters.hudFuelWidth;
+        powerbarHudElement.AddChild(powerbarFill);
+        AddChild(powerbarHudElement);
+        powerbarAmount = powerbarFill.width;
     }
 
     void CreateScoreElement()
@@ -111,21 +137,81 @@ class Hud : GameObject
         scoreCount = activeScene.score;
         scoreHudElement.Text(scoreCount.ToString(), true);
 
+        //Console.WriteLine("****************START******************");
         //Fuel update
-        if (fuelbarFill.width > 0)
+        if (fuelbarFill.width > 0 && !activeScene.bossFight)
         {
-            int oldFillAmount = (int)fuelbarFillAmount;
             fuelbarFillAmount -= CoreParameters.hudFuelbarLooseOverTime * clampedDeltaTime;
-            if (oldFillAmount != (int)fuelbarFillAmount)
+            //Console.WriteLine("fuelbarFillAmount "+ fuelbarFillAmount);
+            //Console.WriteLine("fuelbarFill.width - 2 " + (fuelbarFill.width - 2).ToString());
+            if (fuelbarFillAmount <= fuelbarFill.width - 2)
             {
-                fuelbarFill.width = (int)fuelbarFillAmount;
-                fuelbarFill.x = oldFillAmount - fuelbarFill.width / 2;
-
+                //Console.WriteLine("go Down");
+                UpdateFuelbar(-1);
             }
+
+            //Console.WriteLine("fuelbarFill.width "+ fuelbarFill.width);
+            //Console.WriteLine("fuelbarFill.x " + fuelbarFill.x);
+
         }
-        else if (fuelbarFill.width < 0)
+        else if (fuelbarFill.width < 0 || !activeScene.playerAlive)
         {
             fuelbarFill.width = 0;
+        }
+
+        if (fuelbarFill.width == 0 && activeScene.playerAlive)
+        {
+            activeScene.player.health = 0;
+        }
+
+        //Power update
+        if (!activeScene.playerAlive)
+        {
+            powerbarFill.width = 0;
+        }
+        else
+        {
+            if (powerbarFill.width < 100 && !activeScene.player.isInSpecialState)
+            {
+                powerbarAmount += CoreParameters.hudFuelbarLooseOverTime * clampedDeltaTime;
+                //Console.WriteLine("fuelbarFillAmount "+ fuelbarFillAmount);
+                //Console.WriteLine("fuelbarFill.width - 2 " + (fuelbarFill.width - 2).ToString());
+                if (powerbarAmount >= powerbarFill.width + 2)
+                {
+                    //Console.WriteLine("go Down");
+                    UpdatePowerbar(1);
+                }
+
+                //Console.WriteLine("fuelbarFill.width "+ fuelbarFill.width);
+                //Console.WriteLine("fuelbarFill.x " + fuelbarFill.x);
+
+            }
+            else if (powerbarFill.width >= 100 && !activeScene.player.isInSpecialState)
+            {
+                powerbarFill.width = 100;
+                activeScene.player.isInSpecialState = true;
+            }
+
+            if (powerbarFill.width > 0 && activeScene.player.isInSpecialState)
+            {
+                powerbarAmount -= CoreParameters.hudFuelbarLooseOverTime * clampedDeltaTime;
+                //Console.WriteLine("fuelbarFillAmount "+ fuelbarFillAmount);
+                //Console.WriteLine("fuelbarFill.width - 2 " + (fuelbarFill.width - 2).ToString());
+                if (powerbarAmount <= powerbarFill.width - 2)
+                {
+                    //Console.WriteLine("go Down");
+                    UpdatePowerbar(-1);
+                }
+
+                //Console.WriteLine("fuelbarFill.width "+ fuelbarFill.width);
+                //Console.WriteLine("fuelbarFill.x " + fuelbarFill.x);
+
+            }
+            else if (powerbarFill.width <= 0 && activeScene.player.isInSpecialState)
+            {
+                powerbarFill.width = 0;
+                activeScene.player.isInSpecialState = false;
+            }
         }
     }
 }

@@ -6,13 +6,15 @@ class DestroyAnimation : AnimationSprite
     bool _isOver = false;
 
     //Class global
+    Scene scene;
     bool alreadyCycledThrough = false;
     float speed;
 
-    public DestroyAnimation(string pFilename, int pRow, int pCol, float pSpeed = 0f, float pScale = 1) : base(pFilename, pRow, pCol, -1, false, false)
+    public DestroyAnimation(string pFilename, int pRow, int pCol, Scene pScene, float pSpeed = 0f, float pScale = 1) : base(pFilename, pRow, pCol, -1, false, false)
     {
         SetOrigin(width / 2, height / 2);
         SetCycle(0, 5);
+        scene = pScene;
         scale = pScale;
         speed = pSpeed;
     }
@@ -28,7 +30,10 @@ class DestroyAnimation : AnimationSprite
     {
         int clampedDeltaTime = Mathf.Min(Time.deltaTime, 40);
 
-        x -= speed * clampedDeltaTime;
+        if (scene.playerAlive)
+        {
+            x -= speed * clampedDeltaTime;
+        }
 
         if (currentFrame == 1) //If passed first animation frame, remember that
         {
