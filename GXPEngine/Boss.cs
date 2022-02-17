@@ -62,8 +62,8 @@ class Boss : Vehicle
         }
         if (Time.time > lastShot + CoreParameters.bossSideGunInterval)
         {
-            scene.AddChild(new Asteroid(scene, x, y + width / 2, Asteroid.Type.Normal));
-            scene.AddChild(new Asteroid(scene, x, y - width / 2, Asteroid.Type.Normal));
+            scene.AddChild(new Asteroid(scene, x, y + (width / 2)*4, Asteroid.Type.Normal));
+            scene.AddChild(new Asteroid(scene, x, y - (width / 2)*4, Asteroid.Type.Normal));
             lastShot = Time.time;
         }
     }
